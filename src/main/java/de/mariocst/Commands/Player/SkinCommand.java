@@ -21,11 +21,11 @@ public class SkinCommand extends Command {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.skin") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 try {
-                    if (args.length == 2) {
-                        Player t = player.getServer().getPlayer(args[1]);
+                    if (args.length == 1) {
+                        Player t = player.getServer().getPlayer(args[0]);
 
                         try {
-                            if (null == t.getName()) {
+                            if (t == null) {
                                 sender.sendMessage(MarioMain.PREFIX + "Unbekannter Spieler");
                                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                                 return true;
