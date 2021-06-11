@@ -97,6 +97,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
         //Inventory
         commandMap.register("clear", new ClearInventoryCommand(this));
+        commandMap.register("giveitems", new GiveItemsCommand(this));
         commandMap.register("invsee", new InvseeCommand(this));
 
         // Player
