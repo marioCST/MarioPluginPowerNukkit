@@ -10,7 +10,7 @@ public class ClearInventoryCommand extends Command {
     private MarioMain plugin;
 
     public ClearInventoryCommand(MarioMain plugin) {
-        super("clear", "Cleart dein Inventar", "clear", new String[]{"clearinventory"});
+        super("clear", "Cleart dein Inventar", "clear", new String[]{"clearinventory", "ci", "cleari"});
         this.setPermission("mario.clear");
         this.plugin = plugin;
     }
