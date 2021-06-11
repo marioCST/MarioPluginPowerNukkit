@@ -111,6 +111,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("size", new SizeCommand(this));
         commandMap.register("skin", new SkinCommand(this));
         commandMap.register("speed", new SpeedCommand(this));
+        commandMap.register("troll", new TrollCommand(this));
         commandMap.register("unnick", new UnnickCommand(this));
 
         //Report
