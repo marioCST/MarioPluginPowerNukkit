@@ -20,7 +20,7 @@ public class TPSCommand extends Command {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.tps") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
-                StringBuilder sb = new StringBuilder("§6TPS from last 1m, 5m, 15m: ");
+                /*StringBuilder sb = new StringBuilder("§6TPS from last 1m, 5m, 15m: ");
                 byte b;
                 int i;
                 float ofFloat;
@@ -31,7 +31,8 @@ public class TPSCommand extends Command {
                 }
                 sender.sendMessage(sb.substring(0, sb.length() - 2));
                 sender.sendMessage("§6Current Memory Usage: §2" + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L) + "/" + (Runtime.getRuntime().totalMemory() / 1048576L) + " mb (Max: " + (
-                        Runtime.getRuntime().maxMemory() / 1048576L) + " mb)");
+                        Runtime.getRuntime().maxMemory() / 1048576L) + " mb)");*/
+                player.sendMessage(MarioMain.PREFIX + "TPS: " + player.getServer().getTicksPerSecond());
                 return true;
             } else {
                 sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");

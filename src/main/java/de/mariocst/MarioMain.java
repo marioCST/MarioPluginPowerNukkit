@@ -13,6 +13,7 @@ import de.mariocst.AntiCheat.Config.PlayerCheatRecord;
 import de.mariocst.AntiCheat.Event.Listener.EventListener;
 import de.mariocst.Commands.Announcements.*;
 import de.mariocst.Commands.Chat.*;
+import de.mariocst.Commands.Exploitation.CrashCommand;
 import de.mariocst.Commands.Inventory.*;
 import de.mariocst.Commands.Player.*;
 import de.mariocst.Commands.Report.*;
@@ -95,7 +96,10 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("broadcast", new BroadcastCommand(this));
         commandMap.register("chatclear", new ChatClearCommand(this));
 
-        //Inventory
+        // Exploitation
+        commandMap.register("crash", new CrashCommand(this));
+
+        // Inventory
         commandMap.register("clear", new ClearInventoryCommand(this));
         commandMap.register("giveitems", new GiveItemsCommand(this));
         commandMap.register("invsee", new InvseeCommand(this));
@@ -115,7 +119,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("troll", new TrollCommand(this));
         commandMap.register("unnick", new UnnickCommand(this));
 
-        //Report
+        // Report
         commandMap.register("marioacreport", new MarioACReportCommand(this));
         commandMap.register("marioreport", new MarioReportCommand(this));
 
