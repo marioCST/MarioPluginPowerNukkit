@@ -20,15 +20,47 @@ public class ClearInventoryCommand extends Command {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.clear") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
-                sender.sendMessage(MarioMain.PREFIX + "Dein Inventar wurde geleert!");
-                player.getInventory().clearAll();
+                if (args.length == 0) {
+                    sender.sendMessage(MarioMain.getPrefix() + "Dein Inventar wurde geleert!");
+                    player.getInventory().clearAll();
+                }
+                else if (args.length == 1) {
+                    Player t = player.getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
+
+                    if (t != null) {
+                        t.sendMessage(MarioMain.getPrefix() + "Dein Inventar wurde geleert!");
+                        t.getInventory().clearAll();
+                        player.sendMessage(MarioMain.getPrefix() + "Das Inventar von " + t.getName() + " wurde geleert!");
+                    }
+                    else {
+                        MarioMain.unknownPlayer(player);
+                    }
+                }
+                else {
+                    sender.sendMessage(MarioMain.getPrefix() + "/clearinventory [Spieler]!");
+                    player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            sender.sendMessage("Bitte führe den Befehl InGame aus!");
+            if (args.length == 1) {
+                Player t = MarioMain.getInstance().getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
+
+                if (t != null) {
+                    t.sendMessage(MarioMain.getPrefix() + "Dein Inventar wurde geleert!");
+                    t.getInventory().clearAll();
+                    sender.sendMessage(MarioMain.getPrefix() + "Das Inventar von " + t.getName() + " wurde geleert!");
+                }
+                else {
+                    MarioMain.unknownPlayer(sender);
+                }
+            }
+            else {
+                sender.sendMessage(MarioMain.getPrefix() + "/clearinventory [Spieler]!");
+            }
         }
         return false;
     }

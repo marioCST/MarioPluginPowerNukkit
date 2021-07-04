@@ -22,9 +22,9 @@ public class UnnickCommand extends Command {
             if (player.hasPermission("mario.unnick") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 player.setDisplayName(player.getName());
                 player.setNameTag(player.getName());
-                sender.sendMessage(MarioMain.PREFIX + "Dein Nickname wurde zurückgesetzt!");
+                sender.sendMessage(MarioMain.getPrefix() + "Dein Nickname wurde zurückgesetzt!");
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {

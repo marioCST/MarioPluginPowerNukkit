@@ -20,16 +20,16 @@ public class Reload extends Command {
         int schleife1 = 0;
         int schleife2 = 0;
 
-        String message = String.join(" ",MarioMain.PREFIX + "§6§lSERVER RELOAD! BITTE KEINE BEFEHLE EINGEBEN!");
+        String message = String.join(" ",MarioMain.getPrefix() + "§6§lSERVER RELOAD! BITTE KEINE BEFEHLE EINGEBEN!");
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.announcereload") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                 while (schleife1 < 5) {
                     schleife1++;
 
                     MarioMain.getInstance().getServer().broadcastMessage(message);
-                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
@@ -37,17 +37,17 @@ public class Reload extends Command {
                     }
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+            MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
             while (schleife2 < 5) {
                 schleife2++;
 
                 MarioMain.getInstance().getServer().broadcastMessage(message);
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

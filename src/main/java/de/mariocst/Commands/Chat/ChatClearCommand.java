@@ -27,9 +27,9 @@ public class ChatClearCommand extends Command {
                     schleife1++;
                     MarioMain.getInstance().getServer().broadcastMessage("   ");
                 }
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX + player.getDisplayName() + " hat den Chat geleert.");
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix() + player.getDisplayName() + " hat den Chat geleert.");
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
@@ -38,7 +38,7 @@ public class ChatClearCommand extends Command {
                 schleife2++;
                 MarioMain.getInstance().getServer().broadcastMessage("   ");
             }
-            MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX + "Die Konsole hat den Chat geleert.");
+            MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix() + "Die Konsole hat den Chat geleert.");
         }
         return false;
     }

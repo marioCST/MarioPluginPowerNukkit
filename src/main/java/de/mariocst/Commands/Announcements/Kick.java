@@ -10,7 +10,7 @@ public class Kick extends Command {
     private MarioMain plugin;
 
     public Kick(MarioMain plugin) {
-        super("announcekick", "Screibt 5mal 'ALLE WERDEN GEKICKT! BITTE NACH KURZER ZEIT REJOINEN! NICHT DIREKT!'", "announcekick", new String[]{"ak"});
+        super("announcekick", "Schreibt 5mal 'ALLE WERDEN GEKICKT! BITTE NACH KURZER ZEIT REJOINEN! NICHT DIREKT!'", "announcekick", new String[]{"ak"});
         this.setPermission("mario.annnouncekick");
         this.plugin = plugin;
     }
@@ -20,16 +20,16 @@ public class Kick extends Command {
         int schleife1 = 0;
         int schleife2 = 0;
 
-        String message = String.join(" ", MarioMain.PREFIX + "§e§lALLE WERDEN GEKICKT! BITTE NACH KURZER ZEIT REJOINEN! NICHT DIREKT!");
+        String message = String.join(" ", MarioMain.getPrefix() + "§e§lALLE WERDEN GEKICKT! BITTE NACH KURZER ZEIT REJOINEN! NICHT DIREKT!");
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.announcekick") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                 while (schleife1 < 5) {
                     schleife1++;
 
                     MarioMain.getInstance().getServer().broadcastMessage(message);
-                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
@@ -37,17 +37,17 @@ public class Kick extends Command {
                     }
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+            MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
             while (schleife2 < 5) {
                 schleife2++;
 
                 MarioMain.getInstance().getServer().broadcastMessage(message);
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

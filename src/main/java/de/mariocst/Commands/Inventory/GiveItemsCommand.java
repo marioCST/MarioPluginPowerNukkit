@@ -6,7 +6,6 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemID;
-import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Sound;
 import de.mariocst.MarioMain;
 
@@ -14,7 +13,7 @@ public class GiveItemsCommand extends Command {
     private MarioMain plugin;
 
     public GiveItemsCommand(MarioMain plugin) {
-        super("giveitems", "Gibt dir gute Items! DEINE RÜSTUNG UND DIE ITEMS IN SLOT LINKS 1 BIS 5 WERDEN ERSETZT!!", "giveitems", new String[]{"gi"});
+        super("giveitems", "Gibt dir gute Items! DEINE RÜSTUNG UND DIE ITEMS IN SLOT LINKS 1 BIS 6 WERDEN ERSETZT!!", "giveitems", new String[]{"gi"});
         this.setPermission("mario.giveitems");
         this.plugin = plugin;
     }
@@ -38,7 +37,7 @@ public class GiveItemsCommand extends Command {
                             player.getInventory().clear(3);
                             player.getInventory().clear(4);
 
-                            player.sendMessage(MarioMain.PREFIX + "Die Items wurden dir entfernt!");
+                            player.sendMessage(MarioMain.getPrefix() + "Die Items wurden dir entfernt!");
                         }
                         else if (args[0].equalsIgnoreCase("add")) {
                             player.getInventory().clear(36);
@@ -51,6 +50,7 @@ public class GiveItemsCommand extends Command {
                             player.getInventory().clear(2);
                             player.getInventory().clear(3);
                             player.getInventory().clear(4);
+                            player.getInventory().clear(5);
 
                             player.getInventory().setItem(36, Item.get(ItemID.NETHERITE_HELMET));
                             player.getInventory().setItem(37, Item.get(ItemID.NETHERITE_CHESTPLATE));
@@ -67,15 +67,15 @@ public class GiveItemsCommand extends Command {
                                 player.getInventory().addItem(Item.get(ItemID.ARROW), Item.get(BlockID.OBSIDIAN));
                             }
 
-                            player.sendMessage(MarioMain.PREFIX + "Die Items wurden dir hinzugefügt!");
+                            player.sendMessage(MarioMain.getPrefix() + "Die Items wurden dir hinzugefügt!");
                         }
                         else {
-                            player.sendMessage(MarioMain.PREFIX + "/giveitems <remove|add>");
+                            player.sendMessage(MarioMain.getPrefix() + "/giveitems <remove|add>");
                             player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         }
                     }
                     else if (args.length == 2) {
-                        Player t = MarioMain.getInstance().getServer().getPlayer(args[1]);
+                        Player t = MarioMain.getInstance().getServer().getPlayer(args[1].replaceAll("_", " ").replaceAll("\"", ""));
 
                         try {
                             if (t != null) {
@@ -91,8 +91,8 @@ public class GiveItemsCommand extends Command {
                                     t.getInventory().clear(3);
                                     t.getInventory().clear(4);
 
-                                    t.sendMessage(MarioMain.PREFIX + "Gute Items wurden dir entfernt!");
-                                    player.sendMessage(MarioMain.PREFIX + "Die Items wurden " + t.getName() + " entfernt!");
+                                    t.sendMessage(MarioMain.getPrefix() + "Gute Items wurden dir entfernt!");
+                                    player.sendMessage(MarioMain.getPrefix() + "Die Items wurden " + t.getName() + " entfernt!");
                                 }
                                 else if (args[0].equalsIgnoreCase("add")) {
                                     t.getInventory().clear(36);
@@ -121,37 +121,35 @@ public class GiveItemsCommand extends Command {
                                         t.getInventory().addItem(Item.get(ItemID.ARROW), Item.get(BlockID.OBSIDIAN));
                                     }
 
-                                    t.sendMessage(MarioMain.PREFIX + "Gute Items wurden dir hinzugefügt!");
-                                    player.sendMessage(MarioMain.PREFIX + "Die Items wurden " + t.getName() + " hinzugefügt!");
+                                    t.sendMessage(MarioMain.getPrefix() + "Gute Items wurden dir hinzugefügt!");
+                                    player.sendMessage(MarioMain.getPrefix() + "Die Items wurden " + t.getName() + " hinzugefügt!");
                                 }
                                 else {
-                                    player.sendMessage(MarioMain.PREFIX + "/giveitems <remove|add> <Name>");
+                                    player.sendMessage(MarioMain.getPrefix() + "/giveitems <remove|add> <Spieler>");
                                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                                 }
                             }
                             else {
-                                player.sendMessage(MarioMain.PREFIX + "Dieser Spieler existiert nicht!");
-                                player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                MarioMain.unknownPlayer(player);
                             }
                         }
                         catch (NullPointerException e) {
                             e.printStackTrace();
-                            player.sendMessage(MarioMain.PREFIX + "Dieser Spieler existiert nicht!");
-                            player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     else {
-                        player.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                        player.sendMessage(MarioMain.getPrefix() + "/giveitems <add|remove> [Spieler]!");
                         player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
-                    player.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                    player.sendMessage(MarioMain.getPrefix() + "/giveitems <add|remove> [Spieler]!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {

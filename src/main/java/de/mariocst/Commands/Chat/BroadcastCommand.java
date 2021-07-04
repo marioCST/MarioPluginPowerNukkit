@@ -23,19 +23,19 @@ public class BroadcastCommand extends Command {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.broadcast") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length > 0) {
-                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX + message);
+                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix() + message.replaceAll("&", "§"));
                 } else {
-                    sender.sendMessage(MarioMain.PREFIX + "Bitte gib einen Text ein!");
+                    sender.sendMessage(MarioMain.getPrefix() + "Bitte gib einen Text ein!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
             if (args.length > 0) {
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX + message);
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix() + message);
             } else {
                 sender.sendMessage("Bitte gib einen Text ein!");
             }

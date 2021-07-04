@@ -4,7 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.level.Sound;
-import de.mariocst.AntiCheat.Cheat.AntiCheat;
 import de.mariocst.MarioMain;
 
 public class MarioReportCommand extends Command {
@@ -33,26 +32,26 @@ public class MarioReportCommand extends Command {
                             }
 
                             if (MarioMain.reportPlayer.containsKey(t.getName())) {
-                                sender.sendMessage(MarioMain.PREFIX + "Bitte wiederhole den Report nicht!");
+                                sender.sendMessage(MarioMain.getPrefix() + "Bitte wiederhole den Report nicht!");
                                 return true;
                             }
 
-                            sender.sendMessage(MarioMain.PREFIX + "Der Spieler " + t.getName() + " wurde für " + msg + " reported!");
+                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde für " + msg + " reported!");
 
                             for (Player staff : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
                                 if (staff.hasPermission("mario.staff")) {
-                                    staff.sendMessage(MarioMain.PREFIX + "Der Spieler " + p.getName() + " hat den Spieler " + t.getName() + " für " + msg + " reported!");
+                                    staff.sendMessage(MarioMain.getPrefix() + "Der Spieler " + p.getName() + " hat den Spieler " + t.getName() + " für " + msg + " reported!");
                                 }
                             }
                         }
                         else {
-                            sender.sendMessage(MarioMain.PREFIX + "Der Spieler existiert nicht!");
+                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler existiert nicht!");
                             p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         }
                     }
                     catch (NullPointerException e) {
                         e.printStackTrace();
-                        sender.sendMessage(MarioMain.PREFIX + "Der Spieler existiert nicht!");
+                        sender.sendMessage(MarioMain.getPrefix() + "Der Spieler existiert nicht!");
                         p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 }
@@ -62,42 +61,42 @@ public class MarioReportCommand extends Command {
 
                         if (t.getName() != null) {
                             if (MarioMain.reportPlayer.containsKey(t.getName())) {
-                                sender.sendMessage(MarioMain.PREFIX + "Bitte wiederhole den Report nicht!");
+                                sender.sendMessage(MarioMain.getPrefix() + "Bitte wiederhole den Report nicht!");
                                 return true;
                             }
 
-                            sender.sendMessage(MarioMain.PREFIX + "Der Spieler " + t.getName() + " wurde reported!");
+                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde reported!");
 
                             for (Player staff : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
                                 if (staff.hasPermission("mario.staff")) {
-                                    staff.sendMessage(MarioMain.PREFIX + "Der Spieler " + p.getName() + " hat den Spieler " + t.getName() + " reported!");
+                                    staff.sendMessage(MarioMain.getPrefix() + "Der Spieler " + p.getName() + " hat den Spieler " + t.getName() + " reported!");
                                 }
                             }
                         }
                         else {
-                            sender.sendMessage(MarioMain.PREFIX + "Der Spieler existiert nicht!");
+                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler existiert nicht!");
                             p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         }
                     }
                     catch (NullPointerException e) {
                         e.printStackTrace();
-                        sender.sendMessage(MarioMain.PREFIX + "Der Spieler existiert nicht!");
+                        sender.sendMessage(MarioMain.getPrefix() + "Der Spieler existiert nicht!");
                         p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 }
                 else {
-                    sender.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                    sender.sendMessage(MarioMain.getPrefix() + "Ungültige Parameter Länge!");
                     p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
-                sender.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                sender.sendMessage(MarioMain.getPrefix() + "Ungültige Parameter Länge!");
                 p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            sender.sendMessage(MarioMain.PREFIX + "Ban den Spieler doch selber!");
+            sender.sendMessage(MarioMain.getPrefix() + "Ban den Spieler doch selber!");
         }
         return false;
     }

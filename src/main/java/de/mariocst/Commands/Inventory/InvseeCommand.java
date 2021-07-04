@@ -25,17 +25,16 @@ public class InvseeCommand extends Command {
             if (sender.hasPermission("mario.invsee") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 try {
                     if (args.length == 2) {
-                        Player t = player.getLevel().getServer().getPlayer(args[1]);
+                        Player t = player.getLevel().getServer().getPlayer(args[1].replaceAll("_", " ").replaceAll("\"", ""));
 
                         try {
-                            if (null == t.getName()) {
-                                sender.sendMessage(MarioMain.PREFIX + "Unbekannter Spieler");
-                                player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                            if (t == null) {
+                                MarioMain.unknownPlayer(player);
                                 return true;
                             }
                             else {
                                 if (t.equals(sender)) {
-                                    sender.sendMessage(MarioMain.PREFIX + "Du kannst diesen Command nicht für dein eigenes Inventar nutzen");
+                                    sender.sendMessage(MarioMain.getPrefix() + "Du kannst diesen Command nicht für dein eigenes Inventar nutzen");
                                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                                     return true;
                                 }
@@ -58,34 +57,34 @@ public class InvseeCommand extends Command {
                                         return true;
                                     }
                                     else {
-                                        sender.sendMessage(MarioMain.PREFIX + "/invsee <inv|echest> <Spieler>");
+                                        sender.sendMessage(MarioMain.getPrefix() + "/invsee <inv|echest> <Spieler>");
                                         player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                                     }
                                 }
                             }
                         }
                         catch (NullPointerException e) {
-                            sender.sendMessage(MarioMain.PREFIX + "Unbekannter Spieler");
+                            sender.sendMessage(MarioMain.getPrefix() + "Unbekannter Spieler");
                             player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                             return true;
                         }
                     }
                     else {
-                        player.sendMessage(MarioMain.PREFIX + "/invsee <inv/echest> <Spieler>");
+                        player.sendMessage(MarioMain.getPrefix() + "/invsee <inv/echest> <Spieler>");
                         player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
-                    player.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                    player.sendMessage(MarioMain.getPrefix() + "/invsee <inv/echest> <Spieler>");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            sender.sendMessage(MarioMain.PREFIX + "Bitte führe den Befehl InGame aus!");
+            sender.sendMessage(MarioMain.getPrefix() + "Bitte führe den Befehl InGame aus!");
         }
         return false;
     }

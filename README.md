@@ -20,4 +20,8 @@ idk lol
 
 [Fake Inventories](https://ci.opencollab.dev//job/NukkitX/job/FakeInventories/job/master/) für Invsee
 
+[Lombok](https://projectlombok.org/download) für einen Getter in der Main
+
+[PlotSquared](https://cloudburstmc.org/resources/plotsquared.31/) für /rand und /wand
+
 P.S.: BITTE Fehler in den Issues teilen! Pull Requests sind auch nett :)

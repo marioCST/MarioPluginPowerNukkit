@@ -20,10 +20,10 @@ public class NightCommand extends Command {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (player.hasPermission("mario.night") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
-                sender.sendMessage(MarioMain.PREFIX + "Die Zeit wurde auf Nacht gestellt.");
+                sender.sendMessage(MarioMain.getPrefix() + "Die Zeit wurde auf Nacht gestellt.");
                 player.getLevel().setTime(16000);
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "§cKeine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "§cKeine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {

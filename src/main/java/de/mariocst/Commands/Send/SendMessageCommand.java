@@ -22,7 +22,7 @@ public class SendMessageCommand extends Command {
             if(player.hasPermission("mario.sendmessage") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 try {
                     if (args.length >= 2) {
-                        Player t = player.getServer().getPlayer(args[0]);
+                        Player t = player.getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
 
                         try {
                             if (t != null) {
@@ -36,24 +36,28 @@ public class SendMessageCommand extends Command {
                         }
                         catch (NullPointerException e) {
                             e.printStackTrace();
-                            player.sendMessage(MarioMain.PREFIX + "Dieser Spieler existiert nicht!");
+                            player.sendMessage(MarioMain.getPrefix() + "Dieser Spieler existiert nicht!");
                             player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         }
+                    }
+                    else {
+                        player.sendMessage(MarioMain.getPrefix() + "/sm <Spieler> <Nachricht>");
+                        player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
-                    player.sendMessage(MarioMain.PREFIX + "/sm <Spieler> <Nachricht>");
+                    player.sendMessage(MarioMain.getPrefix() + "/sm <Spieler> <Nachricht>");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                player.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                player.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             try {
                 if (args.length >= 2) {
-                    Player t = MarioMain.getInstance().getServer().getPlayer(args[0]);
+                    Player t = MarioMain.getInstance().getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
 
                     try {
                         if (t != null) {
@@ -69,6 +73,9 @@ public class SendMessageCommand extends Command {
                         e.printStackTrace();
                         sender.sendMessage("Dieser Spieler existiert nicht!");
                     }
+                }
+                else {
+                    sender.sendMessage("/sm <Spieler> <Nachricht>");
                 }
             }
             catch (ArrayIndexOutOfBoundsException e) {

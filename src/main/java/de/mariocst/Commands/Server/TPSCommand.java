@@ -32,15 +32,15 @@ public class TPSCommand extends Command {
                 sender.sendMessage(sb.substring(0, sb.length() - 2));
                 sender.sendMessage("§6Current Memory Usage: §2" + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L) + "/" + (Runtime.getRuntime().totalMemory() / 1048576L) + " mb (Max: " + (
                         Runtime.getRuntime().maxMemory() / 1048576L) + " mb)");*/
-                player.sendMessage(MarioMain.PREFIX + "TPS: " + player.getServer().getTicksPerSecond());
+                sender.sendMessage(MarioMain.getPrefix() + "TPS: " + MarioMain.getInstance().getServer().getTicksPerSecond());
                 return true;
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            StringBuilder sb = new StringBuilder("§6TPS from last 1m, 5m, 15m: ");
+            /*StringBuilder sb = new StringBuilder("§6TPS from last 1m, 5m, 15m: ");
             byte b;
             int i;
             float ofFloat;
@@ -51,7 +51,8 @@ public class TPSCommand extends Command {
             }
             sender.sendMessage(sb.substring(0, sb.length() - 2));
             sender.sendMessage("§6Current Memory Usage: §2" + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L) + "/" + (Runtime.getRuntime().totalMemory() / 1048576L) + " mb (Max: " + (
-                    Runtime.getRuntime().maxMemory() / 1048576L) + " mb)");
+                    Runtime.getRuntime().maxMemory() / 1048576L) + " mb)");*/
+            sender.sendMessage(MarioMain.getPrefix() + "TPS: " + MarioMain.getInstance().getServer().getTicksPerSecond());
             return true;
         }
         return false;

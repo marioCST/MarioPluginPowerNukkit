@@ -23,9 +23,9 @@ public class DieCommand extends Command {
             Player player = (Player) sender;
             if(player.hasPermission("mario.die") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 player.setHealth(0F);
-                player.sendMessage(MarioMain.PREFIX + "Du bist gestorben.");
+                player.sendMessage(MarioMain.getPrefix() + "Du bist gestorben.");
             } else {
-                player.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                player.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {

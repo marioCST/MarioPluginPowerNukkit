@@ -36,7 +36,7 @@ public class MarioACReportCommand extends Command {
                                     type = 1;
                                     break;
                                 default:
-                                    sender.sendMessage(MarioMain.PREFIX + "Report types: invaliditemenchant, iie");
+                                    sender.sendMessage(MarioMain.getPrefix() + "Report types: invaliditemenchant, iie");
                             }
 
                             AntiCheat.CheatType cheatType = null;
@@ -46,43 +46,43 @@ public class MarioACReportCommand extends Command {
                                     cheatType = AntiCheat.CheatType.INVALID_ITEM;
                                     break;
                                 default:
-                                    sender.sendMessage(MarioMain.PREFIX + "Unbekannter Report Typ! Report Types: invaliditemenchant, iie.");
+                                    sender.sendMessage(MarioMain.getPrefix() + "Unbekannter Report Typ! Report Types: invaliditemenchant, iie.");
                                     return true;
                             }
 
                             if (MarioMain.reportPlayer.containsKey(t.getName())) {
-                                sender.sendMessage(MarioMain.PREFIX + "Bitte wiederhole den Report nicht!");
+                                sender.sendMessage(MarioMain.getPrefix() + "Bitte wiederhole den Report nicht!");
                                 return true;
                             }
 
                             MarioMain.reportPlayer.put(t.getName(), cheatType);
                             MarioMain.getInstance().getLogger().warning("Der Spieler " + p.getName() + " hat den Spieler " + t.getName() + " wegen " + cheatType.getTypeName() + " reported!");
-                            sender.sendMessage(MarioMain.PREFIX + "Du hast erfolgreich den Spieler " + t.getName() + " für " + cheatType.getTypeName() + " reported!");
+                            sender.sendMessage(MarioMain.getPrefix() + "Du hast erfolgreich den Spieler " + t.getName() + " für " + cheatType.getTypeName() + " reported!");
                         }
                         else {
-                            sender.sendMessage(MarioMain.PREFIX + "Der Spieler existiert nicht!");
+                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler existiert nicht!");
                             p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         }
                     }
                     catch (NullPointerException e) {
                         e.printStackTrace();
-                        sender.sendMessage(MarioMain.PREFIX + "Der Spieler existiert nicht!");
+                        sender.sendMessage(MarioMain.getPrefix() + "Der Spieler existiert nicht!");
                         p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 }
                 else {
-                    sender.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                    sender.sendMessage(MarioMain.getPrefix() + "Ungültige Parameter Länge!");
                     p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
-                sender.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                sender.sendMessage(MarioMain.getPrefix() + "Ungültige Parameter Länge!");
                 p.getLevel().addSound(p.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            sender.sendMessage(MarioMain.PREFIX + "Ban den Spieler doch selber!");
+            sender.sendMessage(MarioMain.getPrefix() + "Ban den Spieler doch selber!");
         }
         return false;
     }

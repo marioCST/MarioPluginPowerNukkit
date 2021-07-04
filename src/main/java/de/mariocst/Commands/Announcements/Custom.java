@@ -25,12 +25,12 @@ public class Custom extends Command {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.broadcast5") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length > 0) {
-                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                     while (schleife1 < 5) {
                         schleife1++;
 
-                        MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX + message);
-                        MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                        MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix() + message.replaceAll("&", "§"));
+                        MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -38,22 +38,22 @@ public class Custom extends Command {
                         }
                     }
                 } else {
-                    sender.sendMessage(MarioMain.PREFIX + "Bitte gib einen Text ein!");
+                    sender.sendMessage(MarioMain.getPrefix() + "Bitte gib einen Text ein!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
             if (args.length > 0) {
-                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                 while (schleife2 < 5) {
                     schleife2++;
 
-                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX + message);
-                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.PREFIX);
+                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix() + message);
+                    MarioMain.getInstance().getServer().broadcastMessage(MarioMain.getPrefix());
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {

@@ -23,19 +23,36 @@ public class NickCommand extends Command {
                 if (args.length == 1) {
                     if (args[0].length() < 16) {
                         String newNick = String.join(" ", args);
+
+                        if (!player.hasPermission("mario.nick.bypass") || !player.hasPermission("mario.*") || !player.hasPermission("*") || !player.isOp()) {
+                            if (newNick.contains("§")) {
+                                player.sendMessage(MarioMain.getPrefix() + "Bitte wähle einen Nicknamen ohne Colorcodes!");
+                                return false;
+                            }
+                            else if (newNick.contains("&")) {
+                                player.sendMessage(MarioMain.getPrefix() + "Bitte wähle einen Nicknamen ohne Colorcodes!");
+                                return false;
+                            }
+                        }
+
                         player.setDisplayName(newNick);
-                        player.setNameTag(newNick);
-                        sender.sendMessage(MarioMain.PREFIX + "Dein Nickname wurde erfolgreich zu " + newNick + " geändert!");
+                        if (!player.hasPermission("mario.nick.bypass") && !player.hasPermission("mario.*") && !player.hasPermission("*") && !player.isOp()) {
+                            player.setNameTag("(" + player.getName() + ") " + newNick);
+                        }
+                        else {
+                            player.setNameTag(newNick);
+                        }
+                        sender.sendMessage(MarioMain.getPrefix() + "Dein Nickname wurde erfolgreich zu " + newNick + " geändert!");
                     } else {
-                        sender.sendMessage(MarioMain.PREFIX + "Bitte wähle einen Namen, der kürzer als 16 Zeichen ist!");
+                        sender.sendMessage(MarioMain.getPrefix() + "Bitte wähle einen Namen, der kürzer als 16 Zeichen ist!");
                         player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     }
                 } else {
-                    sender.sendMessage(MarioMain.PREFIX + "Bitte gib einen Nickname ein, oder suche dir einen, der keine Leerzeichen hat!");
+                    sender.sendMessage(MarioMain.getPrefix() + "Bitte gib einen Nickname ein, oder suche dir einen, der keine Leerzeichen hat!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {

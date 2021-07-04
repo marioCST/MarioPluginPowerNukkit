@@ -1,4 +1,4 @@
-package de.mariocst.Commands.Util;
+package de.mariocst.Commands.Others;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
@@ -21,13 +21,13 @@ public class ReplyCommand extends Command {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.reply") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length < 1) {
-                    sender.sendMessage(MarioMain.PREFIX + "Ungültige Parameter Länge!");
+                    sender.sendMessage(MarioMain.getPrefix() + "Ungültige Parameter Länge!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                     return false;
                 }
                 else {
                     if (!MarioMain.getInstance().getLastMessagedPlayers().containsKey(sender.getName())) {
-                        sender.sendMessage(MarioMain.PREFIX + "Du hast niemandem eine MSG geschrieben!");
+                        sender.sendMessage(MarioMain.getPrefix() + "Du hast niemandem eine MSG geschrieben!");
                         player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         return false;
                     }
@@ -39,7 +39,7 @@ public class ReplyCommand extends Command {
                             if (playerName.equalsIgnoreCase("CONSOLE")) {
                                 target = MarioMain.getInstance().getServer().getConsoleSender();
                             } else {
-                                sender.sendMessage(MarioMain.PREFIX + "Spieler " + playerName + " nicht gefunden!");
+                                sender.sendMessage(MarioMain.getPrefix() + "Spieler " + playerName + " nicht gefunden!");
                                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                                 MarioMain.getInstance().getLastMessagedPlayers().remove(sender.getName());
                                 return false;
@@ -51,8 +51,8 @@ public class ReplyCommand extends Command {
                                 builder.append(args[i]).append(" ");
                             }
 
-                            sender.sendMessage(MarioMain.PREFIX + "[Du -> " + target.getName() + "] " + builder.toString());
-                            target.sendMessage(MarioMain.PREFIX + "[" + sender.getName() + " -> Dir] " + builder.toString());
+                            sender.sendMessage(MarioMain.getPrefix() + "[Du -> " + target.getName() + "] " + builder.toString());
+                            target.sendMessage(MarioMain.getPrefix() + "[" + sender.getName() + " -> Dir] " + builder.toString());
 
                             MarioMain.getInstance().getLastMessagedPlayers().put(sender.getName(), target.getName());
                             MarioMain.getInstance().getLastMessagedPlayers().put(target.getName(), sender.getName());
@@ -60,12 +60,12 @@ public class ReplyCommand extends Command {
                     }
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            sender.sendMessage(MarioMain.PREFIX + "Bitte führe den Command InGame aus!");
+            sender.sendMessage(MarioMain.getPrefix() + "Bitte führe den Command InGame aus!");
         }
         return false;
     }

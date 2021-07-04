@@ -25,13 +25,13 @@ public class SetLinkCommand extends Command {
             if (sender.hasPermission("mario.setlink") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length > 0) {
                     Link = message;
-                    sender.sendMessage(MarioMain.PREFIX + "Der Discord Link ist nun: " + message);
+                    sender.sendMessage(MarioMain.getPrefix() + "Der Discord Link ist nun: " + message);
                 } else {
-                    sender.sendMessage(MarioMain.PREFIX + "§cBitte setze einen Link!");
+                    sender.sendMessage(MarioMain.getPrefix() + "§cBitte setze einen Link!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                 }
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {

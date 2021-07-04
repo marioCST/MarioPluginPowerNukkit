@@ -20,15 +20,15 @@ public class DumbCommand extends Command {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.dumb") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
-                String message = String.join(" ",MarioMain.PREFIX + player.getDisplayName() + " ist dumm.");
+                String message = String.join(" ",MarioMain.getPrefix() + player.getDisplayName() + " ist dumm.");
                 MarioMain.getInstance().getServer().broadcastMessage(message);
             } else {
-                sender.sendMessage(MarioMain.PREFIX + "Keine Rechte!");
+                sender.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
             assert false;
-            String message = String.join(" ",MarioMain.PREFIX + "Die Konsole ist dumm.");
+            String message = String.join(" ",MarioMain.getPrefix() + "Die Konsole ist dumm.");
             MarioMain.getInstance().getServer().broadcastMessage(message);
         }
         return false;
