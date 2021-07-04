@@ -1,6 +1,6 @@
-name: MarioPlugInPowerNukkit
+name: MarioPlugin
 api: 1.0.12
 main: de.mariocst.MarioMain
 version: 1.0
 authors: [ "marioCST" ]
-description: Mario PlugIn for PowerNukkit's API!
+description: Mario Plugin for PowerNukkit's API!
