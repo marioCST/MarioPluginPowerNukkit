@@ -10,8 +10,8 @@ public class ClearInventoryCommand extends Command {
     private MarioMain plugin;
 
     public ClearInventoryCommand(MarioMain plugin) {
-        super("clear", "Cleart dein Inventar", "clear", new String[]{"clearinventory", "ci", "cleari"});
-        this.setPermission("mario.clear");
+        super("clearinventory", "Cleart dein Inventar", "clear", new String[]{"clear", "ci", "cleari"});
+        this.setPermission("mario.clearinventory");
         this.plugin = plugin;
     }
 
@@ -19,7 +19,7 @@ public class ClearInventoryCommand extends Command {
     public boolean execute(CommandSender sender, String s, String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
-            if (sender.hasPermission("mario.clear") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
+            if (sender.hasPermission("mario.clearinventory") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length == 0) {
                     sender.sendMessage(MarioMain.getPrefix() + "Dein Inventar wurde geleert!");
                     player.getInventory().clearAll();
