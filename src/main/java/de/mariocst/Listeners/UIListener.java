@@ -67,33 +67,6 @@ public class UIListener implements Listener {
                         player.sendMessage(MarioMain.getPrefix() + "Dein Gamemode ist nun Spectator!");
                     }
                 }
-                if (fws.getTitle().equals("§aWorld Teleport")) {
-                    if (button.equals("Lobby")) {
-                        if (MarioMain.getInstance().getServer().getLevelByName("flatmap") != null) {
-                            player.teleport(new Location(-71.5, 7, 92.5, MarioMain.getInstance().getServer().getLevelByName("flatmap")));
-                        }
-                    }
-                    if (button.equals("§1Citybuild 1")) {
-                        if (MarioMain.getInstance().getServer().getLevelByName("cb01") != null) {
-                            player.teleport(new Location(-48.5, 69.5, -48.5, MarioMain.getInstance().getServer().getLevelByName("cb01")));
-                        }
-                    }
-                    if (button.equals("§2Farmwelt")) {
-                        if (MarioMain.getInstance().getServer().getLevelByName("farmwelt") != null) {
-                            player.teleport(new Location(-51.5, 64, 239.5, MarioMain.getInstance().getServer().getLevelByName("farmwelt")));
-                        }
-                    }
-                    if (button.equals("§4Nether")) {
-                        if (MarioMain.getInstance().getServer().getLevelByName("netherfw") != null) {
-                            player.teleport(new Location(121.5, 71, 130.5, MarioMain.getInstance().getServer().getLevelByName("netherfw")));
-                        }
-                    }
-                    if (button.equals("§eEnd")) {
-                        if (MarioMain.getInstance().getServer().getLevelByName("endfw") != null) {
-                            player.teleport(new Location(100.5, 56, 39.5, MarioMain.getInstance().getServer().getLevelByName("endfw")));
-                        }
-                    }
-                }
             }
         }
     }
