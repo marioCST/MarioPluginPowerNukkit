@@ -40,8 +40,6 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
     private static MarioMain instance;
 
-    private Map<String, String> lastMessagedPlayers = new HashMap<>();
-
     private static String prefix = "§8[§6marioCST.de§8] §b";
 
     private static MasterConfig masterConfig;
@@ -142,7 +140,6 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("date", new DateCommand(this));
         commandMap.register("discord", new DiscordCommand(this));
         commandMap.register("lol", new LolCommand(this));
-        commandMap.register("reply", new ReplyCommand(this));
 
         // Player
         commandMap.register("die", new DieCommand(this));
@@ -232,10 +229,6 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
     @Override
     public MasterConfig getMasterConfig() {
         return masterConfig;
-    }
-
-    public Map<String, String> getLastMessagedPlayers() {
-        return lastMessagedPlayers;
     }
 
     public static void addIllegalPlayer(Player player) {
