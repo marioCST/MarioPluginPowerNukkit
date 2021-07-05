@@ -125,7 +125,8 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("mute", new MuteCommand(this));
 
         //Inventory
-        commandMap.register("clear", new ClearInventoryCommand(this));
+        commandMap.register("clearenderchest", new ClearEnderchestCommand(this));
+        commandMap.register("clearinventory", new ClearInventoryCommand(this));
         commandMap.register("giveitems", new GiveItemsCommand(this));
         commandMap.register("id", new IDCommand(this));
         if (this.getServer().getPluginManager().getPlugin("FakeInventories") != null) {
