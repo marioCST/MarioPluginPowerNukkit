@@ -92,7 +92,10 @@ public class InvseeCommand extends Command {
     private void onSlotChange(FakeSlotChangeEvent e) {
         if (e.getInventory() instanceof DoubleChestFakeInventory) {
             if (e.getInventory().getName().contains("'s Ender Chest") || e.getInventory().getName().contains("'s Inventar")) {
-                e.setCancelled(true);
+                Player player = e.getPlayer();
+                if (!player.hasPermission("mario.invsee.move") && !player.hasPermission("mario.*") && !player.hasPermission("*") && !player.isOp()) {
+                    e.setCancelled(true);
+                }
             }
         }
     }
