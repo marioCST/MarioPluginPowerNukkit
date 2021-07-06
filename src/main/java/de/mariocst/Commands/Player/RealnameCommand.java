@@ -23,10 +23,10 @@ public class RealnameCommand extends Command {
             if (player.hasPermission("mario.realname") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length == 1) {
                     for (Player p : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
-                        if (p.getDisplayName().equals(args[0])) {
-                            if (!p.getDisplayName().equals(player.getDisplayName())) {
-                                if (!p.getDisplayName().equals(p.getName())) {
-                                    player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + args[0] + " heißt in Wirklichkeit " + p.getName() + "!");
+                        if (p.getDisplayName().contains(args[0])) {
+                            if (!p.getDisplayName().contains(player.getDisplayName())) {
+                                if (!p.getDisplayName().contains(p.getName())) {
+                                    player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + p.getDisplayName() + " heißt in Wirklichkeit " + p.getName() + "!");
                                 }
                                 else {
                                     player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + p.getName() + " ist NICHT genickt!");
@@ -58,9 +58,9 @@ public class RealnameCommand extends Command {
             assert false;
             if (args.length == 1) {
                 for (Player p : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
-                    if (p.getDisplayName().equals(args[0])) {
-                        if (!p.getDisplayName().equals(p.getName())) {
-                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + args[0] + " heißt in Wirklichkeit " + p.getName() + "!");
+                    if (p.getDisplayName().contains(args[0])) {
+                        if (!p.getDisplayName().contains(p.getName())) {
+                            sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + p.getDisplayName() + " heißt in Wirklichkeit " + p.getName() + "!");
                         }
                         else {
                             sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + p.getName() + " ist NICHT genickt!");
