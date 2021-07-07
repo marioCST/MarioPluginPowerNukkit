@@ -37,7 +37,7 @@ public class FlyCommand extends Command {
                         }
                     }
                     else if (args.length == 1) {
-                        Player t = player.getServer().getPlayer(args[0]);
+                        Player t = player.getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
 
                         if (t != null) {
                             if (MarioMain.hasFly(t)) {
@@ -76,7 +76,7 @@ public class FlyCommand extends Command {
             assert false;
             try {
                 if (args.length == 1) {
-                    Player t = MarioMain.getInstance().getServer().getPlayer(args[0]);
+                    Player t = MarioMain.getInstance().getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
 
                     if (t != null) {
                         if (t.getLevel().getName().equals("flatmap") || t.getLevel().getName().equals("farmwelt") ||
