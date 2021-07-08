@@ -52,9 +52,14 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
     public List<Player> invTroll = new ArrayList<>();
     public List<Player> moveTroll = new ArrayList<>();
 
+    public List<Player> freezed = new ArrayList<>();
+
     public List<Player> staffChat = new ArrayList<>();
 
     public List<Player> muted = new ArrayList<>();
+
+    public List<Player> airStuckHack = new ArrayList<>();
+    public List<Player> noFallHack = new ArrayList<>();
 
     @Getter
     public FormTroll formTroll;
@@ -146,6 +151,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("getgamemode", new GetGamemodeCommand(this));
         commandMap.register("dumb", new DumbCommand(this));
         commandMap.register("gm", new GMCommand(this));
+        commandMap.register("hacktroll", new HackTrollCommand(this));
         commandMap.register("heal", new HealCommand(this));
         commandMap.register("near", new NearCommand(this));
         commandMap.register("nick", new NickCommand(this));
@@ -196,7 +202,9 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         manager.registerEvents(new AchievementListener(), this);
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new EventListener(), this);
+        manager.registerEvents(new FakeHackListener(), this);
         manager.registerEvents(new FormListener(), this);
+        manager.registerEvents(new FreezedListener(), this);
         manager.registerEvents(new HungerListener(), this);
         manager.registerEvents(new InventoryListener(), this);
         manager.registerEvents(new MoveListener(), this);

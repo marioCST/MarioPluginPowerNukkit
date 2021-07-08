@@ -24,14 +24,13 @@ public class FreezeCommand extends Command {
                 try {
                     if (args.length == 0) {
                         if (player.isImmobile()) {
+                            MarioMain.getInstance().freezed.remove(player);
                             player.setImmobile(false);
                             sender.sendMessage(MarioMain.getPrefix() + "§aDu kannst dich nun wieder bewegen!");
-                        } else if (!player.isImmobile()) {
+                        } else {
+                            MarioMain.getInstance().freezed.add(player);
                             player.setImmobile(true);
                             sender.sendMessage(MarioMain.getPrefix() + "§4Du kannst dich nun nicht mehr bewegen!");
-                        } else {
-                            sender.sendMessage(MarioMain.getPrefix() + "ETWAS IST GEWALTIG SCHIEF GELAUFEN! BITTE WENDE DICH AN DEN SUPPORT!");
-                            player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                         }
                     }
                     else if (args.length == 1) {
@@ -40,16 +39,15 @@ public class FreezeCommand extends Command {
                         try {
                             if (t != null) {
                                 if (t.isImmobile()) {
+                                    MarioMain.getInstance().freezed.remove(t);
                                     t.setImmobile(false);
                                     t.sendMessage(MarioMain.getPrefix() + "§aDu wurdest entfreezed und kannst dich wieder bewegen!");
                                     sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde gefreezed!");
-                                } else if (!t.isImmobile()) {
+                                } else {
+                                    MarioMain.getInstance().freezed.add(t);
                                     t.setImmobile(true);
                                     t.sendMessage(MarioMain.getPrefix() + "§4Du wurdest gefreezed und kannst die nicht mehr bewegen!");
                                     sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde entfreezed!");
-                                } else {
-                                    sender.sendMessage(MarioMain.getPrefix() + "ETWAS IST GEWALTIG SCHIEF GELAUFEN! BITTE WENDE DICH AN DEN SUPPORT!");
-                                    player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
                                 }
                             }
                             else {
@@ -85,15 +83,15 @@ public class FreezeCommand extends Command {
                 try {
                     if (t.getName() != null) {
                         if (t.isImmobile()) {
+                            MarioMain.getInstance().freezed.remove(t);
                             t.setImmobile(false);
                             t.sendMessage(MarioMain.getPrefix() + "§aDu wurdest entfreezed und kannst dich wieder bewegen!");
                             sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde gefreezed!");
-                        } else if (!t.isImmobile()) {
+                        } else {
+                            MarioMain.getInstance().freezed.add(t);
                             t.setImmobile(true);
                             t.sendMessage(MarioMain.getPrefix() + "§4Du wurdest gefreezed und kannst die nicht mehr bewegen!");
                             sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde entfreezed!");
-                        } else {
-                            sender.sendMessage(MarioMain.getPrefix() + "ETWAS IST GEWALTIG SCHIEF GELAUFEN! BITTE WENDE DICH AN DEN SUPPORT!");
                         }
                     }
                     else {
