@@ -10,7 +10,7 @@ public class Reload extends Command {
     private MarioMain plugin;
 
     public Reload(MarioMain plugin) {
-        super("announcereload", "Screibt 5mal 'SERVER RELOAD! BITTE KEINE BEFEHLE EINGEBEN!'", "announcereload", new String[]{"arl"});
+        super("announcereload", "Schreibt 5mal 'SERVER RELOAD! BITTE KEINE BEFEHLE EINGEBEN!'", "announcereload", new String[]{"arl"});
         this.setPermission("mario.annnouncereload");
         this.plugin = plugin;
     }
