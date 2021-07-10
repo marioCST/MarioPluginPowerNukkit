@@ -24,4 +24,6 @@ idk lol
 
 [PlotSquared](https://cloudburstmc.org/resources/plotsquared.31/) für /rand und /wand
 
+[MobPlugin](https://cloudburstmc.org/resources/mobplugin.3/) für /troll tnt
+
 P.S.: BITTE Fehler in den Issues teilen! Pull Requests sind auch nett :)
