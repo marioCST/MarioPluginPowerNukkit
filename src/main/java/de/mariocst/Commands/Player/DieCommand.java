@@ -17,7 +17,7 @@ public class DieCommand extends Command {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String s, String[] strings) {
+    public boolean execute(CommandSender sender, String s, String[] args) {
 
         if(sender instanceof Player) {
             Player player = (Player) sender;
