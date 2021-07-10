@@ -26,7 +26,7 @@ public class PlayerCheatRecord {
         save();
     }
 
-    private void save() {
+    public void save() {
         Config c = new Config(MarioMain.getInstance().getDataFolder() + "/record.yml", Config.YAML);
         c.setAll(config);
         c.save();
