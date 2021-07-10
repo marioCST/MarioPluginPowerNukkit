@@ -14,11 +14,11 @@ public class ChatListener implements Listener {
         if (MarioMain.getInstance().staffChat.contains(player)) {
             event.setCancelled(true);
 
-            MarioMain.getInstance().getServer().getConsoleSender().sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8>> §6" + event.getMessage().replaceAll("&", "§"));
+            MarioMain.getInstance().getServer().getConsoleSender().sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8» §6" + event.getMessage().replaceAll("&", "§"));
 
             for (Player staff : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
                 if (staff.hasPermission("mario.staff") || staff.hasPermission("mario.*") || staff.hasPermission("*") || staff.isOp()) {
-                    staff.sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8>> §6" + event.getMessage().replaceAll("&", "§"));
+                    staff.sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8» §6" + event.getMessage().replaceAll("&", "§"));
                 }
             }
         }

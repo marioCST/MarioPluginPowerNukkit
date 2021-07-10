@@ -63,11 +63,11 @@ public class StaffChatCommand extends Command {
                             player.sendMessage(MarioMain.getPrefix() + "Du schreibst nun nicht mehr in den Staff Chat!");
                         }
                         case "say": {
-                            MarioMain.getInstance().getServer().getConsoleSender().sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8>> §6" + message.replaceAll("&", "§"));
+                            MarioMain.getInstance().getServer().getConsoleSender().sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8» §6" + message.replaceAll("&", "§"));
 
                             for (Player staff : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
                                 if (staff.hasPermission("mario.staff") || staff.hasPermission("mario.*") || staff.hasPermission("*") || staff.isOp()) {
-                                    staff.sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8>> §6" + message.replaceAll("&", "§"));
+                                    staff.sendMessage("§8[§6StaffChat§8] §7" + player.getName() + " §8» §6" + message.replaceAll("&", "§"));
                                 }
                             }
                         }
@@ -86,11 +86,11 @@ public class StaffChatCommand extends Command {
                 player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
             }
         } else {
-            MarioMain.getInstance().getServer().getConsoleSender().sendMessage("§8[§6StaffChat§8] §dKonsole §8>> §6" + message.replaceAll("&", "§"));
+            MarioMain.getInstance().getServer().getConsoleSender().sendMessage("§8[§6StaffChat§8] §dKonsole §8» §6" + message.replaceAll("&", "§"));
 
             for (Player staff : MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
                 if (staff.hasPermission("mario.staff") || staff.hasPermission("mario.*") || staff.hasPermission("*") || staff.isOp()) {
-                    staff.sendMessage("§8[§6StaffChat§8] §dKonsole §8>> §6" + message.replaceAll("&", "§"));
+                    staff.sendMessage("§8[§6StaffChat§8] §dKonsole §8» §6" + message.replaceAll("&", "§"));
                 }
             }
         }
