@@ -7,6 +7,7 @@ Den Source Code downloaden. Öffne den Inhalt der ZIP in IntelliJ (empfohlen). N
 -- Was ist erlaubt? --
 
 Du darfst alles modifizieren, veröffentlichen und eigentlich alles machen, was du willst.
+Du MUSST aber Credits geben!
 
 -- Was tun, wenn ich Eclipse nutze? --
 
