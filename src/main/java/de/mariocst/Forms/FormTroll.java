@@ -41,13 +41,13 @@ public class FormTroll {
     public void openTroll(Player player) {
         SimpleForm form = new SimpleForm.Builder("§cTroll",
                 getNP("", "§aSuch dir eine Kategorie aus!"))
-                .addButton(new ElementButton("§6Item Drop", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInNukkit/master/src/main/resources/textures/itemphysics.png")), e -> this.openItemDropMenu(player))
-                .addButton(new ElementButton("§6Damage", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInNukkit/master/src/main/resources/textures/hitcolor.png")), e -> this.openDamageMenu(player))
+                .addButton(new ElementButton("§6Item Drop", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInPowerNukkit/master/src/main/resources/textures/itemphysics.png")), e -> this.openItemDropMenu(player))
+                .addButton(new ElementButton("§6Damage", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInPowerNukkit/master/src/main/resources/textures/hitcolor.png")), e -> this.openDamageMenu(player))
                 .addButton(new ElementButton("§6TNT", new ElementButtonImageData("path", "textures/blocks/tnt_side.png")), e -> this.openTNTMenu(player))
                 .addButton(new ElementButton("§6Pumpkin", new ElementButtonImageData("path", "textures/blocks/pumpkin_face_off.png")), e -> this.openPumpkinMenu(player))
-                .addButton(new ElementButton("§6Inventory", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInNukkit/master/src/main/resources/textures/nickhider.png")), e -> this.openInventoryTrollMenu(player))
-                .addButton(new ElementButton("§6Move", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInNukkit/master/src/main/resources/textures/togglesprint.png")), e -> this.openMoveMenu(player))
-                .addButton(new ElementButton("§6Lightningstrike", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInNukkit/master/src/main/resources/textures/lightningstrike.png")), e -> this.openLightningstrikeMenu(player))
+                .addButton(new ElementButton("§6Inventory", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInPowerNukkit/master/src/main/resources/textures/nickhider.png")), e -> this.openInventoryTrollMenu(player))
+                .addButton(new ElementButton("§6Move", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInPowerNukkit/master/src/main/resources/textures/togglesprint.png")), e -> this.openMoveMenu(player))
+                .addButton(new ElementButton("§6Lightningstrike", new ElementButtonImageData("url", "https://raw.githubusercontent.com/marioCST/MarioPlugInPowerNukkit/master/src/main/resources/textures/lightningstrike.png")), e -> this.openLightningstrikeMenu(player))
                 .build();
         form.send(player);
     }
