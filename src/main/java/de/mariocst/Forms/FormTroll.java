@@ -5,12 +5,16 @@ import cn.nukkit.Player;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.ConsoleCommandSender;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.item.EntityPrimedTNT;
 import cn.nukkit.entity.weather.EntityLightning;
+import cn.nukkit.event.entity.EntityExplosionPrimeEvent;
 import cn.nukkit.event.weather.LightningStrikeEvent;
 import cn.nukkit.form.element.ElementButton;
 import cn.nukkit.form.element.ElementButtonImageData;
 import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Explosion;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.Sound;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -141,6 +145,7 @@ public class FormTroll {
     public void openTNTMenu(Player player) {
         CustomForm form = new CustomForm.Builder("§6TNT")
                 .addElement(new ElementInput("Spieler", player.getName()))
+                .addElement(new ElementInput("Stärke", "1"))
                 .onSubmit((e, r) -> {
                     if (r.getInputResponse(0).isEmpty()) {
                         player.sendMessage(MarioMain.getPrefix() + "Bitte gib einen Spieler Namen ein!");
@@ -151,13 +156,55 @@ public class FormTroll {
 
                     try {
                         if (t != null) {
-                            if (MarioMain.getInstance().getServer().getPluginManager().getPlugin("MobPlugin") != null) {
-                                dispatchCommand(consoleSender(), "summon primed_tnt " + t.getName());
+                            if (r.getInputResponse(1).isEmpty()) {
+                                EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
+                                tnt.spawnTo(t);
 
-                                player.sendMessage(MarioMain.getPrefix() + "TNT bei " + t.getName() + " gespawnt!");
+                                EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+
+                                MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+
+                                player.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
                             }
                             else {
-                                player.sendMessage(MarioMain.getPrefix() + "Plugin \"MobPlugin\" ist nicht installiert! /troll tnt geht leider nicht.");
+                                try {
+                                    int multiplier = Integer.parseInt(r.getInputResponse(1));
+
+                                    if (multiplier > 16) {
+                                        player.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine kleinere Zahl!");
+                                        player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                    }
+                                    else if (multiplier <= 0){
+                                        player.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine größere Zahl!");
+                                        player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                    }
+                                    else {
+                                        double force = 4.0D * multiplier;
+
+                                        EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(player.getPosition()), t);
+
+                                        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, force);
+                                        event.setForce(force);
+
+                                        MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+                                        if (!event.isCancelled()) {
+                                            Explosion explosion = new Explosion(t.getPosition(), event.getForce(), tnt);
+
+                                            if (event.isBlockBreaking()) {
+                                                explosion.explodeA();
+                                            }
+
+                                            explosion.explodeB();
+                                        }
+
+                                        player.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt mit der Stärke " + multiplier + " (" + force + ")!");
+                                    }
+                                }
+                                catch (NullPointerException f) {
+                                    f.printStackTrace();
+                                    player.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine Zahl!");
+                                    player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                }
                             }
                         }
                         else {
