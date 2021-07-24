@@ -211,14 +211,14 @@ public class TrollCommand extends Command {
                                     }
                                 }
                                 case "tnt" -> {
-                                    if (MarioMain.getInstance().getServer().getPluginManager().getPlugin("MobPlugin") != null) {
-                                        MarioMain.getInstance().getServer().dispatchCommand(MarioMain.getInstance().getServer().getConsoleSender(), "summon primed_tnt " + t.getName());
+                                    EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
+                                    tnt.spawnTo(t);
 
-                                        sender.sendMessage(MarioMain.getPrefix() + "TNT bei " + t.getName() + " gespawnt!");
-                                    }
-                                    else {
-                                        sender.sendMessage(MarioMain.getPrefix() + "Plugin \"MobPlugin\" ist nicht installiert! /troll tnt geht leider nicht.");
-                                    }
+                                    EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+
+                                    MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+
+                                    sender.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
                                 }
                                 case "pumpkin", "pk", "jumpscare", "js" -> {
                                     t.getInventory().setHelmet(Item.get(-155));
