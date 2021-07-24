@@ -11,6 +11,7 @@ import cn.nukkit.entity.weather.EntityLightning;
 import cn.nukkit.event.entity.EntityExplosionPrimeEvent;
 import cn.nukkit.event.weather.LightningStrikeEvent;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Explosion;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.Sound;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -37,7 +38,7 @@ public class TrollCommand extends Command {
                     if (args.length == 0) {
                         MarioMain.getInstance().getFormTroll().openTroll(player);
                     }
-                    else if (args.length == 2) {
+                    else if (args.length >= 2) {
                         Player t = MarioMain.getInstance().getServer().getPlayer(args[1].replaceAll("_", " ").replaceAll("\"", ""));
 
                         try {
@@ -80,14 +81,56 @@ public class TrollCommand extends Command {
                                         }
                                     }
                                     case "tnt" -> {
-                                        EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
-                                        tnt.spawnTo(t);
+                                        if (args.length == 3) {
+                                            try {
+                                                int multiplier = Integer.parseInt(args[2]);
 
-                                        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+                                                if (multiplier > 16) {
+                                                    player.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine kleinere Zahl!");
+                                                    player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                                }
+                                                else if (multiplier <= 0){
+                                                    player.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine größere Zahl!");
+                                                    player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                                }
+                                                else {
+                                                    double force = 4.0D * multiplier;
 
-                                        MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+                                                    EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(player.getPosition()), t);
 
-                                        player.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
+                                                    EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, force);
+                                                    event.setForce(force);
+
+                                                    MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+                                                    if (!event.isCancelled()) {
+                                                        Explosion explosion = new Explosion(t.getPosition(), event.getForce(), tnt);
+
+                                                        if (event.isBlockBreaking()) {
+                                                            explosion.explodeA();
+                                                        }
+
+                                                        explosion.explodeB();
+                                                    }
+
+                                                    player.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt mit der Stärke " + multiplier + " (" + force + ")!");
+                                                }
+                                            }
+                                            catch (NullPointerException e) {
+                                                e.printStackTrace();
+                                                player.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine Zahl!");
+                                                player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
+                                            }
+                                        }
+                                        else {
+                                            EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
+                                            tnt.spawnTo(t);
+
+                                            EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+
+                                            MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+
+                                            player.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
+                                        }
                                     }
                                     case "pumpkin", "pk", "jumpscare", "js" -> {
                                         t.getInventory().setHelmet(Item.get(-155));
@@ -168,8 +211,8 @@ public class TrollCommand extends Command {
         } else {
             assert false;
             try {
-                if (args.length == 1) {
-                    Player t = MarioMain.getInstance().getServer().getPlayer(args[0].replaceAll("_", " ").replaceAll("\"", ""));
+                if (args.length >= 2) {
+                    Player t = MarioMain.getInstance().getServer().getPlayer(args[1].replaceAll("_", " ").replaceAll("\"", ""));
 
                     try {
                         if (t != null) {
@@ -211,14 +254,53 @@ public class TrollCommand extends Command {
                                     }
                                 }
                                 case "tnt" -> {
-                                    EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
-                                    tnt.spawnTo(t);
+                                    if (args.length == 3) {
+                                        try {
+                                            int multiplier = Integer.parseInt(args[2]);
 
-                                    EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+                                            if (multiplier > 16) {
+                                                sender.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine kleinere Zahl!");
+                                            }
+                                            else if (multiplier <= 0){
+                                                sender.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine größere Zahl!");
+                                            }
+                                            else {
+                                                double force = 4.0D * multiplier;
 
-                                    MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+                                                EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
 
-                                    sender.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
+                                                EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, force);
+                                                event.setForce(force);
+
+                                                MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+                                                if (!event.isCancelled()) {
+                                                    Explosion explosion = new Explosion(t.getPosition(), event.getForce(), tnt);
+
+                                                    if (event.isBlockBreaking()) {
+                                                        explosion.explodeA();
+                                                    }
+
+                                                    explosion.explodeB();
+                                                }
+
+                                                sender.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt mit der Stärke " + multiplier + " (" + force + ")!");
+                                            }
+                                        }
+                                        catch (NullPointerException e) {
+                                            e.printStackTrace();
+                                            sender.sendMessage(MarioMain.getPrefix() + "Bitte nutze eine Zahl!");
+                                        }
+                                    }
+                                    else {
+                                        EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
+                                        tnt.spawnTo(t);
+
+                                        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+
+                                        MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+
+                                        sender.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
+                                    }
                                 }
                                 case "pumpkin", "pk", "jumpscare", "js" -> {
                                     t.getInventory().setHelmet(Item.get(-155));
