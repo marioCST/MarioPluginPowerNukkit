@@ -5,7 +5,10 @@ import cn.nukkit.Player;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.item.EntityPrimedTNT;
 import cn.nukkit.entity.weather.EntityLightning;
+import cn.nukkit.event.entity.EntityExplosionPrimeEvent;
 import cn.nukkit.event.weather.LightningStrikeEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.GameRule;
@@ -77,14 +80,14 @@ public class TrollCommand extends Command {
                                         }
                                     }
                                     case "tnt" -> {
-                                        if (MarioMain.getInstance().getServer().getPluginManager().getPlugin("MobPlugin") != null) {
-                                            MarioMain.getInstance().getServer().dispatchCommand(MarioMain.getInstance().getServer().getConsoleSender(), "summon primed_tnt " + t.getName());
+                                        EntityPrimedTNT tnt = new EntityPrimedTNT(t.getChunk(), Entity.getDefaultNBT(t.getPosition()), t);
+                                        tnt.spawnTo(t);
 
-                                            player.sendMessage(MarioMain.getPrefix() + "TNT bei " + t.getName() + " gespawnt!");
-                                        }
-                                        else {
-                                            player.sendMessage(MarioMain.getPrefix() + "Plugin \"MobPlugin\" ist nicht installiert! /troll tnt geht leider nicht.");
-                                        }
+                                        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(tnt, 4.0D);
+
+                                        MarioMain.getInstance().getServer().getPluginManager().callEvent(event);
+
+                                        player.sendMessage(MarioMain.getPrefix() + "BOOM! TNT bei " + t.getName() + " gespawnt!");
                                     }
                                     case "pumpkin", "pk", "jumpscare", "js" -> {
                                         t.getInventory().setHelmet(Item.get(-155));

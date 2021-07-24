@@ -242,10 +242,6 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
         // Form Windows
         this.formTroll = new FormTroll();
-
-        if (this.getServer().getPluginManager().getPlugin("MobPlugin") == null) {
-            critical("Plugin \"MobPlugin\" wurde nicht gefunden! Troll im Modus TNT wird deaktiviert! Download: https://cloudburstmc.org/resources/mobplugin.3/");
-        }
     }
 
     public static MarioMain getInstance() {
