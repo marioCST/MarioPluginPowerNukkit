@@ -29,6 +29,7 @@ import de.mariocst.Config.PlayerIllegalItems;
 import de.mariocst.Forms.FormListener;
 import de.mariocst.Forms.FormTroll;
 import de.mariocst.Listeners.*;
+import de.mariocst.Timer.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
     private static String prefix;
 
     private static MasterConfig masterConfig;
+    private static Timer timerConfig;
     private PlayerCheatRecord playerCheatRecord;
     private PlayerIllegalItems playerIllegalItems;
     private static PlayerIllegalItems playerIllegalItemsS;
@@ -109,12 +111,18 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         if (masterConfig.isEmpty()) {
             this.getLogger().warning("Die Config ist leer!");
         }
+        Config timer = new Config(this.getDataFolder() + "/timer.yml", Config.YAML);
+        timerConfig = new Timer(timer.getRootSection());
+        if (timerConfig.isEmpty()) {
+            this.getLogger().warning("Die Timer Config ist leer!");
+        }
         playerCheatRecord = new PlayerCheatRecord(new Config(this.getDataFolder() + "/record.yml", Config.YAML).getRootSection());
         playerIllegalItems = new PlayerIllegalItems(new Config(this.getDataFolder() + "/bannedIllegalPlayers.yml", Config.YAML).getRootSection());
     }
 
     public void saveConfigs() {
         masterConfig.save();
+        timerConfig.save();
         playerCheatRecord.save();
         playerIllegalItems.save();
     }
@@ -122,6 +130,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
     public void reloadConfigs() {
         Config c = new Config(this.getDataFolder() + "/config.yml", Config.YAML);
         masterConfig = new MasterConfig(c.getRootSection());
+        timerConfig = new Timer(c.getRootSection());
     }
 
     @Override
@@ -195,6 +204,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         commandMap.register("configuration", new ConfigurationCommand(this));
         commandMap.register("kickall", new KickAllCommand(this));
         commandMap.register("staffchat", new StaffChatCommand(this));
+        commandMap.register("timer", new TimerCommand(this));
         commandMap.register("tps", new TPSCommand(this));
         if (this.getServer().getPluginManager().getPlugin("PlotSquared") != null) {
             commandMap.register("rand", new RandCommand(this));
@@ -251,6 +261,10 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
     @Override
     public MasterConfig getMasterConfig() {
         return masterConfig;
+    }
+
+    public Timer getTimer() {
+        return timerConfig;
     }
 
     public static void addIllegalPlayer(Player player) {
