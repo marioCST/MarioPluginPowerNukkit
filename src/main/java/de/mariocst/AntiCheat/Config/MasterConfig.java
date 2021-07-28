@@ -14,12 +14,21 @@ public class MasterConfig {
     private boolean invalidItemEnchantmentCheck;
 
     private String prefix;
+    private String link;
 
     public MasterConfig(ConfigSection configSection) {
         masterConfig = this;
         config = configSection;
         isEmpty = config.isEmpty();
         init();
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getPrefix() {
@@ -37,24 +46,27 @@ public class MasterConfig {
     private void init() {
         if (!isEmpty) {
             prefix = config.getString("prefix");
+            link = config.getString("link");
             invalidItemEnchantmentCheck = config.getBoolean("invalidItemEnchantmentCheck");
-            MarioMain.setPrefix(prefix);
+            MarioMain.setPrefix(prefix.replaceAll("'''", ""));
         } else {
             spawnDefaultConfig();
         }
     }
 
     private void spawnDefaultConfig() {
-        prefix = "'§8[§6marioCST.de§8] §b'";
+        prefix = "§8[§6marioCST.de§8] §b";
+        link = "Undefined";
         invalidItemEnchantmentCheck = true;
         save();
     }
 
     public void save() {
         try {
-            config.put("prefix", prefix);
+            config.put("prefix", prefix.replaceAll("'''", ""));
+            config.put("link", link);
             config.put("invalidItemEnchantmentCheck", invalidItemEnchantmentCheck);
-            MarioMain.setPrefix(prefix.replaceAll("'", ""));
+            MarioMain.setPrefix(prefix.replaceAll("'''", ""));
             Config c = new Config(MarioMain.getInstance().getDataFolder() + "/config.yml", Config.YAML);
             c.setAll(config);
             c.save();

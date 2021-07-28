@@ -4,10 +4,11 @@ import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.level.Sound;
+import de.mariocst.AntiCheat.Config.MasterConfig;
+import de.mariocst.Commands.Others.DiscordCommand;
 import de.mariocst.MarioMain;
 
 public class SetLinkCommand extends Command {
-    public static String Link = "Kein Link ist definiert";
     private MarioMain plugin;
 
     public SetLinkCommand(MarioMain plugin) {
@@ -24,8 +25,9 @@ public class SetLinkCommand extends Command {
             Player player = (Player) sender;
             if (sender.hasPermission("mario.setlink") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length > 0) {
-                    Link = message;
                     sender.sendMessage(MarioMain.getPrefix() + "Der Discord Link ist nun: " + message);
+                    MasterConfig.getMasterConfig().setLink(message);
+                    MasterConfig.getMasterConfig().save();
                 } else {
                     sender.sendMessage(MarioMain.getPrefix() + "§cBitte setze einen Link!");
                     player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
@@ -37,8 +39,9 @@ public class SetLinkCommand extends Command {
         } else {
             assert false;
             if (args.length > 0) {
-                Link = message;
                 sender.sendMessage("Der Discord Link ist nun: " + message);
+                MasterConfig.getMasterConfig().setLink(message);
+                MasterConfig.getMasterConfig().save();
             } else {
                 sender.sendMessage("Bitte setze einen Link!");
             }
