@@ -130,7 +130,8 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
     public void reloadConfigs() {
         Config c = new Config(this.getDataFolder() + "/config.yml", Config.YAML);
         masterConfig = new MasterConfig(c.getRootSection());
-        timerConfig = new Timer(c.getRootSection());
+        Config timer = new Config(this.getDataFolder() + "/timer.yml", Config.YAML);
+        timerConfig = new Timer(timer.getRootSection());
     }
 
     @Override

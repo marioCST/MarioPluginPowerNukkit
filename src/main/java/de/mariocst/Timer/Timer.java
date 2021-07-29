@@ -48,20 +48,6 @@ public class Timer {
         save();
     }
 
-    public void reload() {
-        Timer config = MarioMain.getInstance().getTimer();
-
-        this.running = false;
-
-        config.setSeconds(this.seconds);
-        config.setMinutes(this.minutes);
-        config.setHours(this.hours);
-
-        config.save();
-
-        run();
-    }
-
     public static Timer getTimer() {
         return timer;
     }
