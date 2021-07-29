@@ -79,12 +79,12 @@ public class FormTroll {
                             player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde erfolgreich mit Itemdrop getrollt!");
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
@@ -130,12 +130,12 @@ public class FormTroll {
                             }
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
@@ -208,12 +208,12 @@ public class FormTroll {
                             }
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
@@ -238,12 +238,12 @@ public class FormTroll {
                             player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " hat evtl. einen Jumpscare bekommen!");
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
@@ -275,12 +275,12 @@ public class FormTroll {
                             }
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
@@ -312,12 +312,12 @@ public class FormTroll {
                             }
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
@@ -353,23 +353,15 @@ public class FormTroll {
                             player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " hat einen Schlag!");
                         }
                         else {
-                            MarioMain.unknownPlayer(t);
+                            MarioMain.unknownPlayer(player);
                         }
                     }
                     catch (NullPointerException n) {
                         n.printStackTrace();
-                        MarioMain.unknownPlayer(t);
+                        MarioMain.unknownPlayer(player);
                     }
                 })
                 .build();
         form.send(player);
-    }
-
-    private void dispatchCommand(CommandSender sender, String commandLine) {
-        MarioMain.getInstance().getServer().dispatchCommand(sender, commandLine);
-    }
-
-    private ConsoleCommandSender consoleSender() {
-        return MarioMain.getInstance().getServer().getConsoleSender();
     }
 }
