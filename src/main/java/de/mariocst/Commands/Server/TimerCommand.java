@@ -29,7 +29,7 @@ public class TimerCommand extends Command {
                 }
 
                 switch (args[0].toLowerCase()) {
-                    case "resume" -> {
+                    case "start", "resume" -> {
                         if (timer.isRunning()) {
                             sender.sendMessage(MarioMain.getPrefix() + "§cDer Timer läuft bereits!");
                             break;
@@ -38,7 +38,7 @@ public class TimerCommand extends Command {
                         timer.setRunning(true);
                         sender.sendMessage(MarioMain.getPrefix() + "Der Timer wurde gestartet!");
                     }
-                    case "pause" -> {
+                    case "stop", "pause" -> {
                         if (!timer.isRunning()) {
                             sender.sendMessage(MarioMain.getPrefix() + "§cDer Timer läuft nicht.");
                             break;
@@ -71,6 +71,7 @@ public class TimerCommand extends Command {
                         timer.setHours(0);
                         sender.sendMessage(MarioMain.getPrefix() + "Der Timer wurde resettet!");
                     }
+                    default -> this.sendUsage(player);
                 }
             } else {
                 player.sendMessage(MarioMain.getPrefix() + "Keine Rechte!");
@@ -83,7 +84,7 @@ public class TimerCommand extends Command {
             }
 
             switch (args[0].toLowerCase()) {
-                case "resume" -> {
+                case "start", "resume" -> {
                     if (timer.isRunning()) {
                         sender.sendMessage(MarioMain.getPrefix() + "§cDer Timer läuft bereits!");
                         break;
@@ -92,7 +93,7 @@ public class TimerCommand extends Command {
                     timer.setRunning(true);
                     sender.sendMessage(MarioMain.getPrefix() + "Der Timer wurde gestartet!");
                 }
-                case "pause" -> {
+                case "stop", "pause" -> {
                     if (!timer.isRunning()) {
                         sender.sendMessage(MarioMain.getPrefix() + "§cDer Timer läuft nicht.");
                         break;
@@ -125,6 +126,7 @@ public class TimerCommand extends Command {
                     timer.setHours(0);
                     sender.sendMessage(MarioMain.getPrefix() + "Der Timer wurde resettet!");
                 }
+                default -> this.sendUsage(sender);
             }
         }
 
@@ -132,6 +134,6 @@ public class TimerCommand extends Command {
     }
 
     private void sendUsage(CommandSender sender) {
-        sender.sendMessage("§cUsage: §6/timer resume, /timer pause, /timer time <Seconds> <Minutes> <Hours>, /timer reset");
+        sender.sendMessage("§cUsage: §6/timer start|resume, /timer stop|pause, /timer time <Seconds> <Minutes> <Hours>, /timer reset");
     }
 }
