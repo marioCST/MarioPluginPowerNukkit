@@ -194,6 +194,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
             commandMap.register("climb", new ClimbCommand(this));
             commandMap.register("fly", new FlyCommand(this));
             commandMap.register("freeze", new FreezeCommand(this));
+            commandMap.register("scaffold", new ScaffoldCommand(this));
             commandMap.register("speed", new SpeedCommand(this));
 
         //Report
@@ -241,6 +242,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         manager.registerEvents(new HungerListener(), this);
         manager.registerEvents(new InventoryListener(), this);
         manager.registerEvents(new MoveListener(), this);
+        manager.registerEvents(new ScaffoldListener(), this);
         manager.registerEvents(new UIListener(), this);
 
         if (this.getServer().getPluginManager().getPlugin("PlotSquared") != null) {
