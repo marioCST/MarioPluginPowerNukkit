@@ -27,6 +27,7 @@ import de.mariocst.Commands.Setter.*;
 import de.mariocst.Commands.World.*;
 import de.mariocst.Config.PlayerIllegalItems;
 import de.mariocst.Forms.FormListener;
+import de.mariocst.Forms.FormTimer;
 import de.mariocst.Forms.FormTroll;
 import de.mariocst.Listeners.*;
 import de.mariocst.Timer.*;
@@ -65,6 +66,9 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
     @Getter
     public FormTroll formTroll;
+
+    @Getter
+    public FormTimer formTimer;
 
     @Override
     public void onLoad() {
@@ -253,6 +257,7 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
         // Form Windows
         this.formTroll = new FormTroll();
+        this.formTimer = new FormTimer();
     }
 
     public static MarioMain getInstance() {

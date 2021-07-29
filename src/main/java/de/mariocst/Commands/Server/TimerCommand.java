@@ -24,7 +24,7 @@ public class TimerCommand extends Command {
             Player player = (Player) sender;
             if(player.hasPermission("mario.timer") || sender.hasPermission("mario.*") || sender.hasPermission("*") || sender.isOp()) {
                 if (args.length == 0) {
-                    sendUsage(sender);
+                    MarioMain.getInstance().getFormTimer().openTimer(player);
                     return true;
                 }
 
