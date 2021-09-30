@@ -8,11 +8,18 @@
     <artifactId>MarioPlugInPowerNukkit</artifactId>
     <version>1.0</version>
 
+    <repositories>
+        <repository>
+            <id>powernukkit-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.powernukkit</groupId>
             <artifactId>powernukkit</artifactId>
-            <version>1.5.0.0-PN</version>
+            <version>1.5.2.0-PN-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
