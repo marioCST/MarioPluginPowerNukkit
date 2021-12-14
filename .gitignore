@@ -1,2 +1,9 @@
 # Project exclude paths
 /target/
+server/
+.idea/
+*.name
+*.ldb
+*.dat
+*.zip
+*.txt
