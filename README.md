@@ -1,4 +1,4 @@
-#Mario Plugin für PowerNukkit
+Mario Plugin für PowerNukkit
 
 **-- Wie nutzt man es? --**
 
