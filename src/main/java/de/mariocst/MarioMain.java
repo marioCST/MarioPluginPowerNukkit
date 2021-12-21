@@ -3,54 +3,37 @@ package de.mariocst;
 import cn.nukkit.AdventureSettings;
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandMap;
-import cn.nukkit.command.CommandSender;
-import cn.nukkit.level.Sound;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
-import cn.nukkit.scheduler.ServerScheduler;
 import cn.nukkit.utils.Config;
-import de.mariocst.AntiCheat.AntiCheatAPI;
-import de.mariocst.AntiCheat.Cheat.*;
-import de.mariocst.AntiCheat.Cheat.inventory.InvalidItemEnchantmentCheckThread;
-import de.mariocst.AntiCheat.Config.*;
-import de.mariocst.AntiCheat.Event.Listener.EventListener;
-import de.mariocst.Commands.Announcements.*;
-import de.mariocst.Commands.Chat.*;
-import de.mariocst.Commands.Inventory.*;
-import de.mariocst.Commands.Others.*;
-import de.mariocst.Commands.Player.*;
-import de.mariocst.Commands.Player.Movement.*;
-import de.mariocst.Commands.Report.*;
-import de.mariocst.Commands.Send.*;
-import de.mariocst.Commands.Server.*;
-import de.mariocst.Commands.Setter.*;
-import de.mariocst.Commands.World.*;
-import de.mariocst.Config.PlayerIllegalItems;
-import de.mariocst.Forms.FormListener;
-import de.mariocst.Forms.FormTimer;
-import de.mariocst.Forms.FormTroll;
-import de.mariocst.Listeners.*;
-import de.mariocst.Timer.*;
+import de.mariocst.commands.announcements.*;
+import de.mariocst.commands.chat.*;
+import de.mariocst.commands.inventory.*;
+import de.mariocst.commands.others.*;
+import de.mariocst.commands.player.*;
+import de.mariocst.commands.player.movement.*;
+import de.mariocst.commands.send.*;
+import de.mariocst.commands.server.*;
+import de.mariocst.commands.setter.*;
+import de.mariocst.commands.world.*;
+import de.mariocst.config.MasterConfig;
+import de.mariocst.forms.FormListener;
+import de.mariocst.forms.FormTimer;
+import de.mariocst.forms.FormTroll;
+import de.mariocst.listeners.*;
+import de.mariocst.timer.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class MarioMain extends PluginBase implements AntiCheatAPI {
-
+public class MarioMain extends PluginBase {
     private static MarioMain instance;
 
     private static String prefix;
 
     private static MasterConfig masterConfig;
     private static Timer timerConfig;
-    private PlayerCheatRecord playerCheatRecord;
-    private PlayerIllegalItems playerIllegalItems;
-    private static PlayerIllegalItems playerIllegalItemsS;
-
-    public static HashMap<String, Report> reportThread = new HashMap<>();
-    public static HashMap<String, AntiCheat.CheatType> reportPlayer = new HashMap<>();
 
     public List<Player> invTroll = new ArrayList<>();
     public List<Player> moveTroll = new ArrayList<>();
@@ -77,28 +60,28 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
     @Override
     public void onEnable() {
-        initConfig();
+        this.initConfig();
 
         setPrefix(getMasterConfig().getPrefix());
 
-        register();
+        this.register();
 
-        log("marioCST's Plugin geladen!");
+        this.log("marioCST's Plugin geladen!");
     }
 
     @Override
     public void onDisable() {
-        saveConfigs();
+        this.saveConfigs();
 
-        log("marioCST's Plugin entladen!");
+        this.log("marioCST's Plugin entladen!");
     }
 
     public void log(String text) {
-        getLogger().info(getPrefix() + text);
+        this.getLogger().info(getPrefix() + text);
     }
 
     public void critical(String text) {
-        getLogger().critical(getPrefix() + text);
+        this.getLogger().critical(getPrefix() + text);
     }
 
     public static String getPrefix() {
@@ -115,119 +98,100 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         if (masterConfig.isEmpty()) {
             this.getLogger().warning("Die Config ist leer!");
         }
+
         Config timer = new Config(this.getDataFolder() + "/timer.yml", Config.YAML);
         timerConfig = new Timer(timer.getRootSection());
         if (timerConfig.isEmpty()) {
             this.getLogger().warning("Die Timer Config ist leer!");
         }
-        playerCheatRecord = new PlayerCheatRecord(new Config(this.getDataFolder() + "/record.yml", Config.YAML).getRootSection());
-        playerIllegalItems = new PlayerIllegalItems(new Config(this.getDataFolder() + "/bannedIllegalPlayers.yml", Config.YAML).getRootSection());
     }
 
     public void saveConfigs() {
         masterConfig.save();
         timerConfig.save();
-        playerCheatRecord.save();
-        playerIllegalItems.save();
     }
 
     public void reloadConfigs() {
         Config c = new Config(this.getDataFolder() + "/config.yml", Config.YAML);
         masterConfig = new MasterConfig(c.getRootSection());
+
         Config timer = new Config(this.getDataFolder() + "/timer.yml", Config.YAML);
         timerConfig = new Timer(timer.getRootSection());
-    }
-
-    @Override
-    public void addRecord(Player player, AntiCheat.CheatType cheatType) {
-        playerCheatRecord.addRecord(player, cheatType);
     }
 
     private void register() {
         CommandMap commandMap = getServer().getCommandMap();
 
         // Announcements
-        commandMap.register("broadcast5", new Custom(this));
-        commandMap.register("announcekick", new Kick(this));
-        commandMap.register("announcereload", new Reload(this));
-        commandMap.register("announcerestart", new Restart(this));
-        commandMap.register("announcestop", new Stop(this));
+        commandMap.register("broadcast5", new Custom());
+        commandMap.register("announcekick", new Kick());
+        commandMap.register("announcereload", new Reload());
+        commandMap.register("announcerestart", new Restart());
+        commandMap.register("announcestop", new Stop());
 
         // Chat
-        commandMap.register("broadcast", new BroadcastCommand(this));
-        commandMap.register("chatclear", new ChatClearCommand(this));
-        commandMap.register("mute", new MuteCommand(this));
+        commandMap.register("broadcast", new BroadcastCommand());
+        commandMap.register("chatclear", new ChatClearCommand());
+        commandMap.register("mute", new MuteCommand());
 
         //Inventory
-        commandMap.register("clearenderchest", new ClearEnderchestCommand(this));
-        commandMap.register("clearinventory", new ClearInventoryCommand(this));
-        commandMap.register("giveitems", new GiveItemsCommand(this));
-        commandMap.register("id", new IDCommand(this));
+        commandMap.register("clearenderchest", new ClearEnderchestCommand());
+        commandMap.register("clearinventory", new ClearInventoryCommand());
+        commandMap.register("giveitems", new GiveItemsCommand());
+        commandMap.register("id", new IDCommand());
         if (this.getServer().getPluginManager().getPlugin("FakeInventories") != null) {
-            commandMap.register("invsee", new InvseeCommand(this));
+            commandMap.register("invsee", new InvseeCommand());
         }
         else {
-            critical("Plugin \"FakeInventories\" wurde nicht gefunden! Invsee wird deaktiviert! Download: https://ci.opencollab.dev//job/NukkitX/job/FakeInventories/job/master/");
+            this.critical("Plugin \"FakeInventories\" wurde nicht gefunden! Invsee wird deaktiviert! Download: https://ci.opencollab.dev//job/NukkitX/job/FakeInventories/job/master/");
         }
-        commandMap.register("tnt", new TNTCommand(this));
+        commandMap.register("tnt", new TNTCommand());
 
         // Others
-        commandMap.register("date", new DateCommand(this));
-        commandMap.register("discord", new DiscordCommand(this));
-        commandMap.register("lol", new LolCommand(this));
+        commandMap.register("date", new DateCommand());
+        commandMap.register("discord", new DiscordCommand());
 
         // Player
-        commandMap.register("die", new DieCommand(this));
-        commandMap.register("getgamemode", new GetGamemodeCommand(this));
-        commandMap.register("dumb", new DumbCommand(this));
-        commandMap.register("gm", new GMCommand(this));
-        commandMap.register("hacktroll", new HackTrollCommand(this));
-        commandMap.register("heal", new HealCommand(this));
-        commandMap.register("near", new NearCommand(this));
-        commandMap.register("nick", new NickCommand(this));
-        commandMap.register("realname", new RealnameCommand(this));
-        commandMap.register("size", new SizeCommand(this));
-        commandMap.register("skin", new SkinCommand(this));
-        commandMap.register("troll", new TrollCommand(this));
-        commandMap.register("unnick", new UnnickCommand(this));
+        commandMap.register("die", new DieCommand());
+        commandMap.register("getgamemode", new GetGamemodeCommand());
+        commandMap.register("gm", new GMCommand());
+        commandMap.register("hacktroll", new HackTrollCommand());
+        commandMap.register("heal", new HealCommand());
+        commandMap.register("near", new NearCommand());
+        commandMap.register("nick", new NickCommand());
+        commandMap.register("realname", new RealnameCommand());
+        commandMap.register("size", new SizeCommand());
+        commandMap.register("skin", new SkinCommand());
+        commandMap.register("troll", new TrollCommand());
+        commandMap.register("unnick", new UnnickCommand());
             // Movement
-            commandMap.register("climb", new ClimbCommand(this));
-            commandMap.register("fly", new FlyCommand(this));
-            commandMap.register("freeze", new FreezeCommand(this));
-            commandMap.register("scaffold", new ScaffoldCommand(this));
-            commandMap.register("speed", new SpeedCommand(this));
-
-        //Report
-        commandMap.register("marioacreport", new MarioACReportCommand(this));
-        commandMap.register("marioreport", new MarioReportCommand(this));
+            commandMap.register("climb", new ClimbCommand());
+            commandMap.register("fly", new FlyCommand());
+            commandMap.register("freeze", new FreezeCommand());
+            commandMap.register("scaffold", new ScaffoldCommand());
+            commandMap.register("speed", new SpeedCommand());
 
         // Send
-        commandMap.register("sendactionbar", new SendActionbarCommand(this));
-        commandMap.register("sendmessage", new SendMessageCommand(this));
-        commandMap.register("sendtitle", new SendTitleCommand(this));
+        commandMap.register("sendactionbar", new SendActionbarCommand());
+        commandMap.register("sendmessage", new SendMessageCommand());
+        commandMap.register("sendtitle", new SendTitleCommand());
 
         // Server
-        commandMap.register("configuration", new ConfigurationCommand(this));
-        commandMap.register("kickall", new KickAllCommand(this));
-        commandMap.register("staffchat", new StaffChatCommand(this));
-        commandMap.register("timer", new TimerCommand(this));
-        commandMap.register("tps", new TPSCommand(this));
-        if (this.getServer().getPluginManager().getPlugin("PlotSquared") != null) {
-            commandMap.register("rand", new RandCommand(this));
-            commandMap.register("wand", new WandCommand(this));
-        }
-        else {
-            critical("Plugin \"PlotSquared\" wurde nicht gefunden! Rand und Wand wird deaktiviert! Download: https://cloudburstmc.org/resources/plotsquared.31/");
-        }
+        commandMap.register("configuration", new ConfigurationCommand());
+        commandMap.register("kickall", new KickAllCommand());
+        commandMap.register("report", new ReportCommand());
+        commandMap.register("staffchat", new StaffChatCommand());
+        commandMap.register("timer", new TimerCommand());
+        commandMap.register("tps", new TPSCommand());
 
         // Setter
-        commandMap.register("setlink", new SetLinkCommand(this));
-        commandMap.register("setprefix", new SetPrefixCommand(this));
+        commandMap.register("setlink", new SetLinkCommand());
+        commandMap.register("setprefix", new SetPrefixCommand());
 
         // World
-        commandMap.register("day", new DayCommand(this));
-        commandMap.register("getpos", new GetPosCommand(this));
-        commandMap.register("night", new NightCommand(this));
+        commandMap.register("day", new DayCommand());
+        commandMap.register("getpos", new GetPosCommand());
+        commandMap.register("night", new NightCommand());
 
 
         // Events/Listener
@@ -235,7 +199,6 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
 
         manager.registerEvents(new AchievementListener(), this);
         manager.registerEvents(new ChatListener(), this);
-        manager.registerEvents(new EventListener(), this);
         manager.registerEvents(new FakeHackListener(), this);
         manager.registerEvents(new FormListener(), this);
         manager.registerEvents(new FreezedListener(), this);
@@ -244,17 +207,6 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         manager.registerEvents(new MoveListener(), this);
         manager.registerEvents(new ScaffoldListener(), this);
         manager.registerEvents(new UIListener(), this);
-
-        if (this.getServer().getPluginManager().getPlugin("PlotSquared") != null) {
-            manager.registerEvents(new RandListener(), this);
-            manager.registerEvents(new WandListener(), this);
-        }
-
-
-        // Scheduler
-        ServerScheduler scheduler = this.getServer().getScheduler();
-
-        scheduler.scheduleRepeatingTask(new InvalidItemEnchantmentCheckThread(), 10);
 
 
         // Form Windows
@@ -266,26 +218,12 @@ public class MarioMain extends PluginBase implements AntiCheatAPI {
         return instance;
     }
 
-    @Override
     public MasterConfig getMasterConfig() {
         return masterConfig;
     }
 
     public Timer getTimer() {
         return timerConfig;
-    }
-
-    public static void addIllegalPlayer(Player player) {
-        playerIllegalItemsS.addIllegalPlayer(player);
-    }
-
-    public static void unknownPlayer(CommandSender sender) {
-        sender.sendMessage(MarioMain.getPrefix() + "Unbekannter Spieler!");
-
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            player.getLevel().addSound(player.getLocation(), Sound.RANDOM_ANVIL_LAND);
-        }
     }
 
     public static boolean hasFly(Player player) {

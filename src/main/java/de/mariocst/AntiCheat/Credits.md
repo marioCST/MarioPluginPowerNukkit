@@ -1,1 +1,0 @@
-Dies gehört zu einem OpenSource AntiCheat! [AntiCheat](https://github.com/WetABQ/Nukkit-AntiCheat)
