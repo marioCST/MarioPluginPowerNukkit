@@ -159,6 +159,7 @@ public class MarioMain extends PluginBase {
         commandMap.register("heal", new HealCommand());
         commandMap.register("near", new NearCommand());
         commandMap.register("nick", new NickCommand());
+        commandMap.register("nightvision", new NightvisionCommand());
         commandMap.register("realname", new RealnameCommand());
         commandMap.register("size", new SizeCommand());
         commandMap.register("skin", new SkinCommand());
