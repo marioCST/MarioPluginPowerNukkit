@@ -3,6 +3,7 @@ package de.mariocst;
 import cn.nukkit.AdventureSettings;
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandMap;
+import cn.nukkit.level.Location;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import cn.nukkit.utils.Config;
@@ -25,7 +26,9 @@ import de.mariocst.timer.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MarioMain extends PluginBase {
     private static MarioMain instance;
@@ -38,14 +41,14 @@ public class MarioMain extends PluginBase {
     public List<Player> invTroll = new ArrayList<>();
     public List<Player> moveTroll = new ArrayList<>();
 
-    public List<Player> freezed = new ArrayList<>();
-
     public List<Player> staffChat = new ArrayList<>();
 
     public List<Player> muted = new ArrayList<>();
 
     public List<Player> airStuckHack = new ArrayList<>();
     public List<Player> noFallHack = new ArrayList<>();
+
+    public Map<Player, Location> freezed = new HashMap<>();
 
     @Getter
     public FormTroll formTroll;

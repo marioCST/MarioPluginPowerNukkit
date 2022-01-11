@@ -26,7 +26,7 @@ public class FreezeCommand extends Command {
                             player.sendMessage(MarioMain.getPrefix() + "§aDu kannst dich nun wieder bewegen!");
                         }
                         else {
-                            MarioMain.getInstance().freezed.add(player);
+                            MarioMain.getInstance().freezed.put(player, player.getLocation());
                             player.setImmobile(true);
                             player.sendMessage(MarioMain.getPrefix() + "§4Du kannst dich nun nicht mehr bewegen!");
                         }
@@ -43,7 +43,7 @@ public class FreezeCommand extends Command {
                                     player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde gefreezed!");
                                 }
                                 else {
-                                    MarioMain.getInstance().freezed.add(t);
+                                    MarioMain.getInstance().freezed.put(t, t.getLocation());
                                     t.setImmobile(true);
                                     t.sendMessage(MarioMain.getPrefix() + "§4Du wurdest gefreezed und kannst die nicht mehr bewegen!");
                                     player.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde entfreezed!");
@@ -87,7 +87,7 @@ public class FreezeCommand extends Command {
                             sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde gefreezed!");
                         }
                         else {
-                            MarioMain.getInstance().freezed.add(t);
+                            MarioMain.getInstance().freezed.put(t, t.getLocation());
                             t.setImmobile(true);
                             t.sendMessage(MarioMain.getPrefix() + "§4Du wurdest gefreezed und kannst die nicht mehr bewegen!");
                             sender.sendMessage(MarioMain.getPrefix() + "Der Spieler " + t.getName() + " wurde entfreezed!");
