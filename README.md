@@ -1,4 +1,4 @@
-Das Mario PlugIn, aber für Nukkit und PowerNukkit
+Das Mario Plugin, aber für Nukkit und PowerNukkit
 
 -- Was ist erlaubt? --
 
