@@ -3,11 +3,15 @@ package de.mariocst.commands.inventory;
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.item.Item;
 import cn.nukkit.level.Sound;
+import cn.nukkit.scheduler.Task;
 import com.nukkitx.fakeinventories.inventory.ChestFakeInventory;
 import com.nukkitx.fakeinventories.inventory.DoubleChestFakeInventory;
 import com.nukkitx.fakeinventories.inventory.FakeSlotChangeEvent;
 import de.mariocst.MarioMain;
+
+import java.util.Map;
 
 public class InvseeCommand extends Command {
     public InvseeCommand() {
@@ -88,8 +92,35 @@ public class InvseeCommand extends Command {
 
     private void onSlotChange(FakeSlotChangeEvent e) {
         if (e.getInventory() instanceof DoubleChestFakeInventory) {
-            if (e.getInventory().getName().contains("'s Ender Chest") || e.getInventory().getName().contains("'s Inventar")) {
-                e.setCancelled(true);
+            if (e.getInventory().getName().contains("'s Ender Chest")) {
+                if (e.getAction().getSlot() >= 40) {
+                    e.setCancelled(true);
+                    return;
+                }
+
+                Player player = MarioMain.getInstance().getServer().getPlayer(e.getInventory().getName().replaceAll("'s Ender Chest", ""));
+
+                MarioMain.getInstance().getServer().getScheduler().scheduleDelayedTask(new Task() {
+                    public void onRun(int currentTick) {
+                        Map<Integer, Item> contents = e.getInventory().getContents();
+                        player.getEnderChestInventory().setContents(contents);
+                    }
+                }, 1);
+            }
+            else if (e.getInventory().getName().contains("'s Inventar")) {
+                if (e.getAction().getSlot() >= 40) {
+                    e.setCancelled(true);
+                    return;
+                }
+
+                Player player = MarioMain.getInstance().getServer().getPlayer(e.getInventory().getName().replaceAll("'s Inventar", ""));
+
+                MarioMain.getInstance().getServer().getScheduler().scheduleDelayedTask(new Task() {
+                    public void onRun(int currentTick) {
+                        Map<Integer, Item> contents = e.getInventory().getContents();
+                        player.getInventory().setContents(contents);
+                    }
+                }, 1);
             }
         }
     }
