@@ -93,7 +93,7 @@ public class InvseeCommand extends Command {
     private void onSlotChange(FakeSlotChangeEvent e) {
         if (e.getInventory() instanceof DoubleChestFakeInventory) {
             if (e.getInventory().getName().contains("'s Ender Chest")) {
-                if (e.getAction().getSlot() >= 40) {
+                if (e.getAction().getSlot() >= 31) {
                     e.setCancelled(true);
                     return;
                 }
