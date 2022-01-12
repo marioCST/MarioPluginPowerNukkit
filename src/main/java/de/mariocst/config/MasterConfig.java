@@ -13,12 +13,17 @@ public class MasterConfig {
 
     private String prefix;
     private String link;
+    private boolean timer;
 
     public MasterConfig(ConfigSection configSection) {
         masterConfig = this;
         this.config = configSection;
         this.isEmpty = this.config.isEmpty();
         this.init();
+    }
+
+    public boolean isTimer() {
+        return timer;
     }
 
     public String getLink() {
@@ -45,6 +50,7 @@ public class MasterConfig {
         if (!this.isEmpty) {
             this.prefix = this.config.getString("prefix");
             this.link = this.config.getString("link");
+            this.timer = this.config.getBoolean("timer");
             MarioMain.setPrefix(this.prefix.replaceAll("'''", ""));
         }
         else {
@@ -55,6 +61,7 @@ public class MasterConfig {
     private void spawnDefaultConfig() {
         this.prefix = "§8[§6marioCST.de§8] §b";
         this.link = "Undefined";
+        this.timer = false;
         this.save();
     }
 
@@ -62,6 +69,7 @@ public class MasterConfig {
         try {
             this.config.put("prefix", this.prefix.replaceAll("'''", ""));
             this.config.put("link", this.link);
+            this.config.put("timer", this.timer);
             MarioMain.setPrefix(this.prefix.replaceAll("'''", ""));
             Config c = new Config(MarioMain.getInstance().getDataFolder() + "/config.yml", Config.YAML);
             c.setAll(this.config);

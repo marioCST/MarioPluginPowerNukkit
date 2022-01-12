@@ -102,6 +102,7 @@ public class MarioMain extends PluginBase {
             this.getLogger().warning("Die Config ist leer!");
         }
 
+        if (!masterConfig.isTimer()) return;
         Config timer = new Config(this.getDataFolder() + "/timer.yml", Config.YAML);
         timerConfig = new Timer(timer.getRootSection());
         if (timerConfig.isEmpty()) {
@@ -111,7 +112,7 @@ public class MarioMain extends PluginBase {
 
     public void saveConfigs() {
         masterConfig.save();
-        timerConfig.save();
+        if (masterConfig.isTimer()) timerConfig.save();
     }
 
     public void reloadConfigs() {

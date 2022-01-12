@@ -77,8 +77,9 @@ public class Timer {
     }
 
     public void sendActionBar() {
-        for (Player player: MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
+        if (!MarioMain.getInstance().getMasterConfig().isTimer()) return;
 
+        for (Player player: MarioMain.getInstance().getServer().getOnlinePlayers().values()) {
             if (!this.isRunning()) {
                 player.sendActionBar("§4Timer ist pausiert");
                 continue;
@@ -112,9 +113,10 @@ public class Timer {
             Config c = new Config(MarioMain.getInstance().getDataFolder() + "/timer.yml", Config.YAML);
             c.setAll(this.config);
             c.save();
-        } catch (NullPointerException e) {
-            spawnDefaultConfig();
-            save();
+        }
+        catch (NullPointerException e) {
+            this.spawnDefaultConfig();
+            this.save();
         }
     }
 
