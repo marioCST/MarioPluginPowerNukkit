@@ -183,6 +183,7 @@ public class MarioMain extends PluginBase {
 
         // Server
         commandMap.register("configuration", new ConfigurationCommand());
+        commandMap.register("fakeplayer", new FakePlayerCommand());
         commandMap.register("kickall", new KickAllCommand());
         commandMap.register("report", new ReportCommand());
         commandMap.register("staffchat", new StaffChatCommand());
